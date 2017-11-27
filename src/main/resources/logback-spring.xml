@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <!-- 文件输出格式 -->
+    <property name="PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} -%msg%n"/>
+
+    <!-- 开发环境 -->
+    <springProfile name="dev">
+        <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder>
+                <pattern>${PATTERN}</pattern>
+            </encoder>
+        </appender>
+
+        <logger name="com.enjoyor.bigdata.EnloopUtilXMLService.service" level="all"/>
+        <logger name="com.enjoyor.bigdata.EnloopUtilXMLService.controller" level="warn"/>
+        <!--开发环境只在控制台打印-->
+        <root level="info">
+            <appender-ref ref="CONSOLE"/>
+        </root>
+    </springProfile>
+
+    <!-- 测试环境 -->
+    <springProfile name="prod">
+        <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder>
+                <pattern>${PATTERN}</pattern>
+            </encoder>
+        </appender>
+        <!-- 每天产生一个文件 -->
+        <appender name="LOG-FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <!-- 文件路径 /appLogs-->
+            <Prudent>true</Prudent>
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <FileNamePattern>
+                    appLogs/%d{yyyy-MM-dd}/%d{yyyy-MM-dd}.log
+                </FileNamePattern>
+            </rollingPolicy>
+            <layout class="ch.qos.logback.classic.PatternLayout">
+                <Pattern>${PATTERN}</Pattern>
+            </layout>
+        </appender>
+
+        <logger name="com.enjoyor.bigdata.EnloopUtilXMLService.service" level="all"/>
+        <logger name="com.enjoyor.bigdata.EnloopUtilXMLService.controller" level="warn"/>
+        <!--生产环境既在控制台打印也要写入文件-->
+        <root level="info">
+            <appender-ref ref="LOG-FILE"/>
+            <appender-ref ref="CONSOLE"/>
+        </root>
+    </springProfile>
+</configuration>
