@@ -4,7 +4,7 @@ package com.enjoyor.bigdata.EnloopUtilXMLService.aspect;
 import com.enjoyor.bigdata.EnloopUtilXMLService.exception.ConvertException;
 import com.enjoyor.bigdata.EnloopUtilXMLService.exception.Dom4jException;
 import com.enjoyor.bigdata.EnloopUtilXMLService.exception.ParamException;
-import com.enjoyor.bigdata.EnloopUtilXMLService.utils.ResponseResult;
+import com.enjoyor.bigdata.EnloopUtilXMLService.utils.common.ResponseResult;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -41,22 +41,23 @@ public class ExceptionAspect {
         long startTime = System.currentTimeMillis();
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
+        String url = request.getRequestURI().toString();
         ResponseResult<?> result = null;
         try {
 
             result = (ResponseResult<?>) proceedingJoinPoint.proceed();
-            result.setUrl(request.getRequestURI().toString());
+            result.setUrl(url);
             LOGGER.info(proceedingJoinPoint.getSignature() + " EXECUTE TIME : " + (System.currentTimeMillis() - startTime) + " ms;");
         } catch (Throwable e) {
             LOGGER.error(" CATCH EXCEPTION : " + e.toString());
-            result = handlerException(proceedingJoinPoint, e);
+            result = handlerException(url,proceedingJoinPoint, e);
         }
         return result;
     }
 
-    private ResponseResult<?> handlerException(ProceedingJoinPoint proceedingJoinPoint, Throwable e) {
+    private ResponseResult<?> handlerException(String url,ProceedingJoinPoint proceedingJoinPoint, Throwable e) {
         ResponseResult<?> result = new ResponseResult();
-
+        result.setUrl(url);
         // 已知异常
         if (e instanceof ParamException) {
             result.setStatusCode(((ParamException) e).getStatus().value());

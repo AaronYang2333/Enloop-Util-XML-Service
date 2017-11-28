@@ -1,10 +1,10 @@
-package com.enjoyor.bigdata.EnloopUtilXMLService.utils;
+package com.enjoyor.bigdata.EnloopUtilXMLService.utils.common;
 
-import com.enjoyor.bigdata.EnloopUtilXMLService.entity.POJO;
 import com.enjoyor.bigdata.EnloopUtilXMLService.entity.TableEntity;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -46,13 +46,19 @@ public class JsonUtil {
         return strings;
     }
 
-    public static boolean isJavaClass(Class<?> clazz) {
-        return clazz != null && clazz.getClassLoader() == null;
-    }
+//    public static <T> T json2obj(String json, Class<T> objectClass){
+//        T obj = JSON.parseObject(json, new TypeReference<T>() {});
+//        return obj;
+//    }
 
-    public static void main(String[] args) {
-        System.out.println(isJavaClass(Date.class)); // true
-        System.out.println(isJavaClass(TableEntity.class)); // false
+    public static <T> T json2obj(String json, Class<T> objectClass) {
+        T obj = null;
+        try {
+            obj = MAPPER.readValue(json, objectClass);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return obj;
     }
 
 }

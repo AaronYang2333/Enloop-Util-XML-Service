@@ -1,4 +1,4 @@
-package com.enjoyor.bigdata.EnloopUtilXMLService.utils;
+package com.enjoyor.bigdata.EnloopUtilXMLService.utils.xml;
 
 import com.enjoyor.bigdata.EnloopUtilXMLService.exception.Dom4jException;
 import com.enjoyor.bigdata.EnloopUtilXMLService.exception.IORuntimeException;

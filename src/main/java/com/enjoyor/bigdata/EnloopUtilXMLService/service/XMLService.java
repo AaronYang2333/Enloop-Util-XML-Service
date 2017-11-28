@@ -1,9 +1,7 @@
 package com.enjoyor.bigdata.EnloopUtilXMLService.service;
 
-import com.enjoyor.bigdata.EnloopUtilXMLService.entity.TableEntity;
-import com.enjoyor.bigdata.EnloopUtilXMLService.exception.Dom4jException;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -23,5 +21,13 @@ public interface XMLService {
      * @return
      */
     String table2Xml(List<?> entityList);
+
+    /**
+     * 读取XSD文件内容并生成XML
+     * @param xsdFile
+     * @param localPart
+     * @return
+     */
+    String xsd2xml(MultipartFile xsdFile, String localPart);
 
 }
