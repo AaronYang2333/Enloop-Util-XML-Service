@@ -1,6 +1,7 @@
-package com.enjoyor.bigdata.EnloopUtilXMLService.utils;
+package com.enjoyor.bigdata.EnloopUtilXMLService.utils.xml;
 
 import com.enjoyor.bigdata.EnloopUtilXMLService.exception.ConvertException;
+import com.enjoyor.bigdata.EnloopUtilXMLService.utils.common.DateUtil;
 import org.dom4j.Element;
 
 import java.lang.reflect.Field;

@@ -1,4 +1,4 @@
-package com.enjoyor.bigdata.EnloopUtilXMLService.utils;
+package com.enjoyor.bigdata.EnloopUtilXMLService.utils.common;
 
 import com.enjoyor.bigdata.EnloopUtilXMLService.exception.ConvertException;
 

@@ -1,4 +1,4 @@
-package com.enjoyor.bigdata.EnloopUtilXMLService.utils;
+package com.enjoyor.bigdata.EnloopUtilXMLService.utils.common;
 
 import lombok.Data;
 
