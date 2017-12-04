@@ -48,7 +48,7 @@ public class XMLServiceImpl implements XMLService {
         LOGGER.info("接收到XSD文件" + xsdFile.getOriginalFilename() + ",开始转换！");
         //读取XSD文件内容
         StringBuffer xsdDataFromFile = FileUtil.readFile(xsdFile);
-        ParamAssert.ifNullThenReplace(localPart, XMLParseUtil.getLocalPart(xsdDataFromFile.toString()));
+        localPart = ParamAssert.ifNullThenReplace(localPart, XMLParseUtil.getLocalPart(xsdDataFromFile.toString()));
         try {
             //首先尝试从本地转换生成XML
             return GenXMLUtil.genXMLInLocal(xsdFile, localPart);

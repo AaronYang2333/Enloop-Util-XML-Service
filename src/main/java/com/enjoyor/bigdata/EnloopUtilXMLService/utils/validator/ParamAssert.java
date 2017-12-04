@@ -69,9 +69,11 @@ public class ParamAssert {
      * @param originalStr
      * @param alternativeStr
      */
-    public static void ifNullThenReplace(String originalStr, String alternativeStr) {
-        if(null == originalStr || originalStr.length() == 0){
-
+    public static String ifNullThenReplace(String originalStr, String alternativeStr) {
+        if (null == originalStr || originalStr.length() == 0) {
+            return alternativeStr;
+        } else {
+            return originalStr;
         }
     }
 

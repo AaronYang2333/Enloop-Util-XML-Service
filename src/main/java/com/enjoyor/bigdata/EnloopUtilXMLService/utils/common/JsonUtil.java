@@ -1,12 +1,10 @@
 package com.enjoyor.bigdata.EnloopUtilXMLService.utils.common;
 
-import com.enjoyor.bigdata.EnloopUtilXMLService.entity.TableEntity;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
