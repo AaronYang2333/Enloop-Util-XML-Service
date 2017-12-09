@@ -1,11 +1,13 @@
 package com.enjoyor.bigdata.EnloopUtilXMLService.service.impl;
 
+import com.enjoyor.bigdata.EnloopUtilXMLService.entity.ValidateResult;
 import com.enjoyor.bigdata.EnloopUtilXMLService.service.XMLService;
 import com.enjoyor.bigdata.EnloopUtilXMLService.utils.common.FileUtil;
 import com.enjoyor.bigdata.EnloopUtilXMLService.utils.validator.ParamAssert;
 import com.enjoyor.bigdata.EnloopUtilXMLService.utils.xml.GenXMLUtil;
 import com.enjoyor.bigdata.EnloopUtilXMLService.utils.xml.XMLParseUtil;
 import com.enjoyor.bigdata.EnloopUtilXMLService.utils.xml.XMLPrettyPrintUtil;
+import com.enjoyor.bigdata.EnloopUtilXMLService.utils.xml.XMLValidator;
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.slf4j.Logger;
@@ -56,6 +58,11 @@ public class XMLServiceImpl implements XMLService {
             //出错后，远程调用解析XSD
             return GenXMLUtil.genXMLByHTTP(xsdDataFromFile);
         }
+    }
+
+    @Override
+    public ValidateResult validate(MultipartFile xsdFile, MultipartFile xmlFile) {
+        return XMLValidator.validateWithSingleSchema(xsdFile, xmlFile);
     }
 
 }

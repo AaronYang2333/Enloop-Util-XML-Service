@@ -1,5 +1,6 @@
 package com.enjoyor.bigdata.EnloopUtilXMLService.service;
 
+import com.enjoyor.bigdata.EnloopUtilXMLService.entity.ValidateResult;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -30,4 +31,11 @@ public interface XMLService {
      */
     String xsd2xml(MultipartFile xsdFile, String localPart);
 
+    /**
+     * 根据给定的XSD文档验证XML文件是否合法
+     * @param xsdFile
+     * @param xmlFile
+     * @return
+     */
+    ValidateResult validate(MultipartFile xsdFile, MultipartFile xmlFile);
 }

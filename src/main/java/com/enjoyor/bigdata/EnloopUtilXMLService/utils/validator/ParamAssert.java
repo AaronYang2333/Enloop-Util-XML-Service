@@ -2,9 +2,18 @@ package com.enjoyor.bigdata.EnloopUtilXMLService.utils.validator;
 
 import com.enjoyor.bigdata.EnloopUtilXMLService.entity.TableEntity;
 import com.enjoyor.bigdata.EnloopUtilXMLService.exception.ParamException;
+import com.enjoyor.bigdata.EnloopUtilXMLService.exception.TransformRuntimeException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
+import java.io.ByteArrayInputStream;
+import java.lang.reflect.Field;
 import java.util.Date;
 
 /**
@@ -71,6 +80,19 @@ public class ParamAssert {
      */
     public static String ifNullThenReplace(String originalStr, String alternativeStr) {
         if (null == originalStr || originalStr.length() == 0) {
+//            TransformerFactory factory = TransformerFactory.newInstance();
+//            ByteArrayInputStream byteAlternativeStr = new ByteArrayInputStream(alternativeStr.getBytes());
+//            Source alternativeSource = new StreamSource(byteAlternativeStr);
+//            Transformer transformer = null;
+//            try {
+//                transformer = factory.newTransformer(alternativeSource);
+//            } catch (TransformerConfigurationException e) {
+//                throw new TransformRuntimeException(alternativeSource.getClass(),"TransformerConfigurationException");
+//            }
+//            ByteArrayInputStream alternativeInputStream = new ByteArrayInputStream(alternativeStr.getBytes());
+//            Source text = new StreamSource(alternativeInputStream);
+//
+//            transformer.transform(text, new StreamResult(outputStream));
             return alternativeStr;
         } else {
             return originalStr;
@@ -85,8 +107,35 @@ public class ParamAssert {
         throw new ParamException(errorMsg, httpStatus);
     }
 
-    public static void main(String[] args) {
-        System.out.println(isJavaClass(Date.class)); // true
-        System.out.println(isJavaClass(TableEntity.class)); // false
+    public static void main(String[] str) {
+
+            String test = "aaa";
+            System.out.println("1--test : " + test);
+            String bbb = "2222";
+            change(test, bbb);
+            System.out.println("2--test : " + test);
+
+    }
+
+    private static void change(String aaa, String bbb){
+        try {
+            if(null == aaa){
+                aaa = new String();
+            }
+            Field values = aaa.getClass().getDeclaredField("value");
+            values.setAccessible(true);
+            char[] ref = (char[]) values.get(aaa);
+            for(int i = 0; i < ref.length; i++){
+                ref[i] = bbb.toCharArray()[i];
+            }
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (SecurityException e) {
+            e.printStackTrace();
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
     }
 }
