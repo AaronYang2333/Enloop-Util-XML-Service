@@ -4,7 +4,9 @@ import com.enjoyor.bigdata.EnloopUtilXMLService.exception.IORuntimeException;
 import com.enjoyor.bigdata.EnloopUtilXMLService.exception.ParamException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.lang.reflect.Field;
 
 /**
@@ -37,6 +39,19 @@ public class ParamAssert {
     public static void isNull(Object object, String errorMsg) {
         if (object == null) {
             fail(errorMsg, object);
+        }
+    }
+
+    public static void isEmpty(String errorMsg, MultipartFile... multipartFiles) {
+        for (MultipartFile file : multipartFiles) {
+            isNull(file, "MultipartFile 文件不能为空！");
+            try {
+                if (0 == file.getBytes().length) {
+                    fail(file.getClass(), errorMsg);
+                }
+            } catch (IOException e) {
+                fail(file.getClass(), errorMsg);
+            }
         }
     }
 
@@ -76,7 +91,7 @@ public class ParamAssert {
         try {
             field.set(originalStr, alternativeStr.toCharArray());
         } catch (IllegalAccessException e) {
-            throw new IORuntimeException(field.getClass(), "字符串替换失败！");
+            fail(field.getClass(), "字符串替换失败！");
         }
     }
 
@@ -88,4 +103,7 @@ public class ParamAssert {
         throw new ParamException(errorMsg, httpStatus);
     }
 
+    private static void fail(Class<?> clazz, String errorMsg) {
+        throw new IORuntimeException(clazz, errorMsg);
+    }
 }

@@ -23,15 +23,15 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/xml")
-@Api(tags = "Something2XML", description = "Convert XSD API")
-public class Convert2XSDController {
+@Api(tags = "Something2XML", description = "Something 2 XML API")
+public class Convert2XMLAPI {
 
     @Autowired
     private XMLService xmlService;
 
     @RequestMapping(value = "/from/table", method = RequestMethod.POST)
     @ApiOperation(value = "将表格数据转换成XML文件", notes = "将表格数据转换成XML文件，并返回转换后的XML内容")
-    public ResponseResult table2XML(@RequestBody List<TableEntity> entityList) {
+    public ResponseResult<String> table2XML(@RequestBody List<TableEntity> entityList) {
         String xml = xmlService.table2Xml(entityList);
         System.out.println(xml);
         return ResponseResult.ok(xml);
@@ -39,7 +39,7 @@ public class Convert2XSDController {
 
     @RequestMapping(value = "/from/xsd/file", method = RequestMethod.POST, produces = {"application/json"})
     @ApiOperation(value = "将XSD文件转换成XML文件并填充内容", notes = "将XSD文件转换成XML文件并填充内容，返回填充后的XML内容")
-    public ResponseResult xsd2XML(@RequestParam(name = "xsdFile") MultipartFile xsdFile) {
+    public ResponseResult<String> xsd2XML(@RequestParam(name = "xsdFile") MultipartFile xsdFile) {
         String xml = xmlService.xsd2xml(xsdFile);
         System.out.println(xml);
         return ResponseResult.ok(xml);
@@ -47,16 +47,15 @@ public class Convert2XSDController {
 
     @RequestMapping(value = "/validate", method = RequestMethod.POST, produces = {"application/json"})
     @ApiOperation(value = "验证XML文档", notes = "根据给定的XSD文件，验证XML文档的合法性，返回出错内容及行数")
-    public ResponseResult xsd2XML(@RequestParam(name = "xsdFile") MultipartFile xsdFile,
-                                  @RequestParam(name = "xmlFile") MultipartFile xmlFile) {
+    public ResponseResult<String> xsd2XML(@RequestParam(name = "xsdFile") MultipartFile xsdFile,
+                                          @RequestParam(name = "xmlFile") MultipartFile xmlFile) {
         return ResponseResult.ok(xmlService.validate(xsdFile, xmlFile));
     }
 
     @RequestMapping(value = "/format", method = RequestMethod.GET, produces = {"application/json"})
     @ApiOperation(value = "格式化XML的内容", notes = "格式化XML的内容")
     @ApiImplicitParam(name = "xml", value = "未格式化的XML字符串", paramType = "query")
-    public ResponseResult formatXML(String xml) {
+    public ResponseResult<String> formatXML(String xml) {
         return ResponseResult.ok(xmlService.formatXML(xml));
     }
-
 }

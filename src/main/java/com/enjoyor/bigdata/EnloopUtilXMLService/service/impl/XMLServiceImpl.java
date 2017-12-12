@@ -4,11 +4,16 @@ import com.enjoyor.bigdata.EnloopUtilXMLService.entity.ValidateResult;
 import com.enjoyor.bigdata.EnloopUtilXMLService.exception.Dom4jException;
 import com.enjoyor.bigdata.EnloopUtilXMLService.service.XMLService;
 import com.enjoyor.bigdata.EnloopUtilXMLService.utils.common.FileUtil;
+import com.enjoyor.bigdata.EnloopUtilXMLService.utils.common.JsonUtil;
 import com.enjoyor.bigdata.EnloopUtilXMLService.utils.validator.ParamAssert;
 import com.enjoyor.bigdata.EnloopUtilXMLService.utils.xml.GenXMLUtil;
 import com.enjoyor.bigdata.EnloopUtilXMLService.utils.xml.XMLParseUtil;
 import com.enjoyor.bigdata.EnloopUtilXMLService.utils.xml.XMLPrettyPrintUtil;
 import com.enjoyor.bigdata.EnloopUtilXMLService.utils.xml.XMLValidator;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
@@ -17,6 +22,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.*;
 import java.util.List;
 
 /**
@@ -69,13 +75,27 @@ public class XMLServiceImpl implements XMLService {
     }
 
     @Override
-    public String formatXML(String xml) {
+    public String formatXML(String xmlContent) {
+        ParamAssert.isBlank(xmlContent, "XML内容不能为空！");
         try {
-            Document document = DocumentHelper.parseText(xml);
+            Document document = DocumentHelper.parseText(xmlContent);
             return XMLPrettyPrintUtil.prettyPrint(document);
         } catch (DocumentException e) {
             throw new Dom4jException("不合法的XML文档内容！");
         }
+    }
+
+    @Override
+    public String xml2Json(MultipartFile xmlFile) {
+        ParamAssert.isNull(xmlFile,"XML文件内容不能为空");
+        StringBuffer xmlContent = FileUtil.readFile(xmlFile);
+        return xml2Json(xmlContent.toString());
+    }
+
+    @Override
+    public String xml2Json(String xmlContent) {
+        ParamAssert.isBlank(xmlContent,"XML内容不能为空！");
+        return JsonUtil.format(JsonUtil.xml2Json(xmlContent));
     }
 
 }
