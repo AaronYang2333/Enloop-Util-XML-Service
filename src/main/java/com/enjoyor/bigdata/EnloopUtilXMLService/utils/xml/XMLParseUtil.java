@@ -80,8 +80,8 @@ public class XMLParseUtil {
         }
     }
 
-    public static String getLocalPart(String xsdData) {
-        String row = xsdData.split("name")[1];
+    public static String getLocalPart(StringBuffer xsdDataBuffer) {
+        String row = xsdDataBuffer.toString().split("name")[1];
         String[] split = row.split("[=|><]");
         for (String temp : split) {
             if (!"".equals(temp) && !temp.contains("xs:")) {

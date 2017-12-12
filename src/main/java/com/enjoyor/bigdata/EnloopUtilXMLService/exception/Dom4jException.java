@@ -19,7 +19,7 @@ public class Dom4jException extends RuntimeException {
 
     private HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
 
-    public Dom4jException( String errorMsg) {
+    public Dom4jException(String errorMsg) {
         super(errorMsg);
         this.errorMsg = errorMsg;
     }

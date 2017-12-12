@@ -59,8 +59,8 @@ public class XMLPrettyPrintUtil {
     }
 
     public static void main(String[] args) {
-        String s = "<?xml version=\\\"1.0\\\" encoding=\\\"UTF-8\\\"?>\\n<root mode=\\\"1\\\" objName=\\\"com.enjoyor.bigdata.EnloopUtilXMLService.entity.TableEntity\\\" tableName=\\\"XXXX\\\"><com.enjoyor.bigdata.EnloopUtilXMLService.entity.TableEntity><column1>string</column1><column2>0</column2><column3>2017-11-25 15:37:17</column3><column4>0</column4><column5>com.enjoyor.bigdata.EnloopUtilXMLService.entity.POJO@7bcd9dbc</column5><column6>string</column6><column7>string</column7></com.enjoyor.bigdata.EnloopUtilXMLService.entity.TableEntity></root>";
-        String s1 = prettyPrint(s);
+        String s = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><shiporder orderid=\"string value\"><orderperson>string value</orderperson><shipto><name>string value</name><address>string value</address><city>string value</city><country>string value</country></shipto><item><title>string value</title><note>string value</note><quantity>1</quantity><price>1.0</price></item><item><title>string value</title><note>string value</note><quantity>1</quantity><price>1.0</price></item></shiporder>";
+                String s1 = prettyPrint(s);
         System.out.println(s1);
     }
 

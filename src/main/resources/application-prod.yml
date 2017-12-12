@@ -1,0 +1,10 @@
+##Service Config
+server:
+  port: 8088
+  tomcat:
+    uriEncoding: UTF-8
+  context-path: /micro-service/xml
+
+##Logger
+logging:
+  config: classpath:logback-spring.xml

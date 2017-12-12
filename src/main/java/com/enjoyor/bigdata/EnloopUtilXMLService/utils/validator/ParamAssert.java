@@ -1,20 +1,11 @@
 package com.enjoyor.bigdata.EnloopUtilXMLService.utils.validator;
 
-import com.enjoyor.bigdata.EnloopUtilXMLService.entity.TableEntity;
+import com.enjoyor.bigdata.EnloopUtilXMLService.exception.IORuntimeException;
 import com.enjoyor.bigdata.EnloopUtilXMLService.exception.ParamException;
-import com.enjoyor.bigdata.EnloopUtilXMLService.exception.TransformRuntimeException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 
-import javax.xml.transform.Source;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.stream.StreamResult;
-import javax.xml.transform.stream.StreamSource;
-import java.io.ByteArrayInputStream;
 import java.lang.reflect.Field;
-import java.util.Date;
 
 /**
  * @author Aaron Yang (yb)
@@ -73,29 +64,19 @@ public class ParamAssert {
     }
 
     /**
-     * 判断字符串是否为空，为空则替换
+     * 判断字符串是否为空("")，为空则替换
      *
      * @param originalStr
      * @param alternativeStr
      */
-    public static String ifNullThenReplace(String originalStr, String alternativeStr) {
-        if (null == originalStr || originalStr.length() == 0) {
-//            TransformerFactory factory = TransformerFactory.newInstance();
-//            ByteArrayInputStream byteAlternativeStr = new ByteArrayInputStream(alternativeStr.getBytes());
-//            Source alternativeSource = new StreamSource(byteAlternativeStr);
-//            Transformer transformer = null;
-//            try {
-//                transformer = factory.newTransformer(alternativeSource);
-//            } catch (TransformerConfigurationException e) {
-//                throw new TransformRuntimeException(alternativeSource.getClass(),"TransformerConfigurationException");
-//            }
-//            ByteArrayInputStream alternativeInputStream = new ByteArrayInputStream(alternativeStr.getBytes());
-//            Source text = new StreamSource(alternativeInputStream);
-//
-//            transformer.transform(text, new StreamResult(outputStream));
-            return alternativeStr;
-        } else {
-            return originalStr;
+    public static void ifEmptyThenReplace(String originalStr, String alternativeStr) throws NoSuchFieldException {
+        isBlank(originalStr, "传入参数为空，无法替换！");
+        Field field = originalStr.getClass().getDeclaredField("value");
+        field.setAccessible(true);
+        try {
+            field.set(originalStr, alternativeStr.toCharArray());
+        } catch (IllegalAccessException e) {
+            throw new IORuntimeException(field.getClass(), "字符串替换失败！");
         }
     }
 
@@ -107,35 +88,4 @@ public class ParamAssert {
         throw new ParamException(errorMsg, httpStatus);
     }
 
-    public static void main(String[] str) {
-
-            String test = "aaa";
-            System.out.println("1--test : " + test);
-            String bbb = "2222";
-            change(test, bbb);
-            System.out.println("2--test : " + test);
-
-    }
-
-    private static void change(String aaa, String bbb){
-        try {
-            if(null == aaa){
-                aaa = new String();
-            }
-            Field values = aaa.getClass().getDeclaredField("value");
-            values.setAccessible(true);
-            char[] ref = (char[]) values.get(aaa);
-            for(int i = 0; i < ref.length; i++){
-                ref[i] = bbb.toCharArray()[i];
-            }
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-        } catch (SecurityException e) {
-            e.printStackTrace();
-        } catch (IllegalArgumentException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-    }
 }

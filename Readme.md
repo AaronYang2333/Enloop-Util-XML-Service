@@ -8,7 +8,7 @@
  4.XML2XSD (根据xml生成xsd)<br/>
  5.Validate XML From XSD (根据给定的xsd文档，验证xml合法性) update By 2017-12-09<br/>
  6.XSLT (xml样式表)<br/>
- 7.格式化XML文档<br/>
+ 7.FormatXML (格式化XML字符串) update By 2017-12-12<br/>
  
 json2xml
 ![json2xml](http://orkf3vfng.bkt.clouddn.com/json2xml.png)

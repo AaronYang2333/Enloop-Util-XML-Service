@@ -18,18 +18,17 @@ public interface XMLService {
     /**
      * 将列表内容转换成XML
      *
-     * @param entityList
-     * @return
+     * @param entityList 实体对象list
+     * @return  生成的xml内容
      */
     String table2Xml(List<?> entityList);
 
     /**
      * 读取XSD文件内容并生成XML
-     * @param xsdFile
-     * @param localPart
-     * @return
+     * @param xsdFile   xsd文件对象
+     * @return  生成的xml内容
      */
-    String xsd2xml(MultipartFile xsdFile, String localPart);
+    String xsd2xml(MultipartFile xsdFile);
 
     /**
      * 根据给定的XSD文档验证XML文件是否合法
@@ -38,4 +37,11 @@ public interface XMLService {
      * @return
      */
     ValidateResult validate(MultipartFile xsdFile, MultipartFile xmlFile);
+
+    /**
+     * 格式化XML文档的内容
+     * @param xml 未格式化的XML字符串
+     * @return
+     */
+    String formatXML(String xml);
 }

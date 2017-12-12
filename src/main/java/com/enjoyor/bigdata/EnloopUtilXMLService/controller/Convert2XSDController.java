@@ -39,19 +39,24 @@ public class Convert2XSDController {
 
     @RequestMapping(value = "/from/xsd/file", method = RequestMethod.POST, produces = {"application/json"})
     @ApiOperation(value = "将XSD文件转换成XML文件并填充内容", notes = "将XSD文件转换成XML文件并填充内容，返回填充后的XML内容")
-    @ApiImplicitParam(name = "localPart", value = "指定XSD文件中需要转换的Element名称,（可不填，默认第一个）", paramType = "form")
-    public ResponseResult xsd2xml(@RequestParam(name = "xsdFile") MultipartFile xsdFile, String localPart) {
-        String xml = xmlService.xsd2xml(xsdFile, localPart);
+    public ResponseResult xsd2XML(@RequestParam(name = "xsdFile") MultipartFile xsdFile) {
+        String xml = xmlService.xsd2xml(xsdFile);
         System.out.println(xml);
         return ResponseResult.ok(xml);
     }
 
     @RequestMapping(value = "/validate", method = RequestMethod.POST, produces = {"application/json"})
     @ApiOperation(value = "验证XML文档", notes = "根据给定的XSD文件，验证XML文档的合法性，返回出错内容及行数")
-    public ResponseResult xsd2xml(@RequestParam(name = "xsdFile") MultipartFile xsdFile,
+    public ResponseResult xsd2XML(@RequestParam(name = "xsdFile") MultipartFile xsdFile,
                                   @RequestParam(name = "xmlFile") MultipartFile xmlFile) {
-        ValidateResult result = xmlService.validate(xsdFile, xmlFile);
-        return ResponseResult.ok(result);
+        return ResponseResult.ok(xmlService.validate(xsdFile, xmlFile));
+    }
+
+    @RequestMapping(value = "/format", method = RequestMethod.GET, produces = {"application/json"})
+    @ApiOperation(value = "格式化XML的内容", notes = "格式化XML的内容")
+    @ApiImplicitParam(name = "xml", value = "未格式化的XML字符串", paramType = "query")
+    public ResponseResult formatXML(String xml) {
+        return ResponseResult.ok(xmlService.formatXML(xml));
     }
 
 }
