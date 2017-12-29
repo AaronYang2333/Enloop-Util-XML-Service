@@ -1,6 +1,6 @@
 ##Service Config
 server:
-  port: 8077
+  port: 8177
   tomcat:
     uriEncoding: UTF-8
   context-path: /micro-service/xml

@@ -11,9 +11,12 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * 提供日期时间处理的工具类.
- *
- * @author
+ * @author Aaron Yang (yb)
+ * @modified Aaron 11:20 AM 12/29/2017
+ * @email aaron19940628@gmail.com 
+ * @date 11:20 AM 12/29/2017.
+ * @description 日期时间处理工具类
+ * @version 1.0
  */
 public class DateUtil {
     /**

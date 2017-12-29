@@ -22,6 +22,9 @@ public class ResponseResult<T> {
     private String url;
 
     public ResponseResult() {
+        this.statusCode = 200;
+        this.message = "OK";
+        this.data = null;
     }
 
     public ResponseResult(T data) {
@@ -38,6 +41,10 @@ public class ResponseResult<T> {
 
     public static <T> ResponseResult ok(T body) {
         return new ResponseResult(body);
+    }
+
+    public static <T> ResponseResult ok() {
+        return new ResponseResult();
     }
 
 

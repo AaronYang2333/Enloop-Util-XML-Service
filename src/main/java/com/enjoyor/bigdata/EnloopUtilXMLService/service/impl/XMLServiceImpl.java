@@ -3,8 +3,10 @@ package com.enjoyor.bigdata.EnloopUtilXMLService.service.impl;
 import com.enjoyor.bigdata.EnloopUtilXMLService.entity.ValidateResult;
 import com.enjoyor.bigdata.EnloopUtilXMLService.exception.Dom4jException;
 import com.enjoyor.bigdata.EnloopUtilXMLService.service.XMLService;
+import com.enjoyor.bigdata.EnloopUtilXMLService.utils.common.CmdUtil;
 import com.enjoyor.bigdata.EnloopUtilXMLService.utils.common.FileUtil;
 import com.enjoyor.bigdata.EnloopUtilXMLService.utils.common.JsonUtil;
+import com.enjoyor.bigdata.EnloopUtilXMLService.utils.common.ResponseResult;
 import com.enjoyor.bigdata.EnloopUtilXMLService.utils.validator.ParamAssert;
 import com.enjoyor.bigdata.EnloopUtilXMLService.utils.xml.GenXMLUtil;
 import com.enjoyor.bigdata.EnloopUtilXMLService.utils.xml.XMLParseUtil;
@@ -24,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Aaron Yang (yb)
@@ -37,6 +40,8 @@ import java.util.List;
 public class XMLServiceImpl implements XMLService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(XMLServiceImpl.class);
+
+    private static final String XML_SAVE_PATH = "xml/";
 
     @Override
     public String table2Xml(List<?> entityList) {
@@ -87,15 +92,36 @@ public class XMLServiceImpl implements XMLService {
 
     @Override
     public String xml2Json(MultipartFile xmlFile) {
-        ParamAssert.isNull(xmlFile,"XML文件内容不能为空");
+        ParamAssert.isNull(xmlFile, "XML文件内容不能为空");
         StringBuffer xmlContent = FileUtil.readFile(xmlFile);
         return xml2Json(xmlContent.toString());
     }
 
     @Override
     public String xml2Json(String xmlContent) {
-        ParamAssert.isBlank(xmlContent,"XML内容不能为空！");
+        ParamAssert.isBlank(xmlContent, "XML内容不能为空！");
         return JsonUtil.format(JsonUtil.xml2Json(xmlContent));
+    }
+
+    @Override
+    public String xml2xsd(MultipartFile xmlFile) {
+        ParamAssert.isNull(xmlFile, "XML文件内容不能为空");
+        StringBuffer xmlContent = FileUtil.readFile(xmlFile);
+        return xml2xsd(xmlContent.toString());
+    }
+
+    @Override
+    public String xml2xsd(String xmlContent) {
+        ParamAssert.isBlank(xmlContent, "XML内容不能为空！");
+        //write a temp file which contain parameter's content in local file system 先在本地写一个文件
+        Map<String, Object> saveFileResult = FileUtil.saveFile(XML_SAVE_PATH, xmlContent);
+        String xmlSavedPath = saveFileResult.get(FileUtil.XML_GEN_PATH).toString();
+        //then use 'java -jar trang.jar aaa.xml bbb.xsd' to generate a xsd file 用命令转换
+        Map<String, String> genXsdResult = CmdUtil.trang(xmlSavedPath);
+        //after translation, u can get the path where the xsd file generated 转换完成之后，读取生成的XSD文件
+        String xsdSavedPath = genXsdResult.get(CmdUtil.XSD_GEN_PATH).toString();
+        //read the file and write the file's content into the response entity 返回文件内容
+        return FileUtil.readFile(xsdSavedPath).toString();
     }
 
 }

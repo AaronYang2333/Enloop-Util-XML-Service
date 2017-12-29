@@ -51,7 +51,7 @@ public interface XMLService {
     /**
      * XML转JSON
      *
-     * @param xmlFile XML文件内容
+     * @param xmlFile XML文件对象
      * @return  转换后的JSON字符串
      */
     String xml2Json(MultipartFile xmlFile);
@@ -63,4 +63,18 @@ public interface XMLService {
      * @return  转换后的JSON字符串
      */
     String xml2Json(String xmlContent);
+
+    /**
+     * XML转XSD
+     * @param xmlFile XML文件对象
+     * @return
+     */
+    String xml2xsd(MultipartFile xmlFile);
+
+    /**
+     * XML转XSD
+     * @param xmlContent    XML字符串
+     * @return
+     */
+    String xml2xsd(String xmlContent);
 }

@@ -1,13 +1,11 @@
 package com.enjoyor.bigdata.EnloopUtilXMLService.utils.common;
 
 import com.enjoyor.bigdata.EnloopUtilXMLService.exception.IORuntimeException;
-import com.enjoyor.bigdata.EnloopUtilXMLService.exception.ParamException;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
-import org.springframework.http.HttpStatus;
 
 import java.io.IOException;
 import java.io.StringWriter;
