@@ -1,0 +1,24 @@
+
+*{
+	margin: 0px;
+	padding: 0px;
+}
+body,html{
+	height: 100%;
+}
+.header{
+	height: 40px;
+	background-color: #cccccc
+}
+.aside{
+	height: 100%;
+	float: left;
+	width: 240px;
+	background-color: #aaaaaa
+}
+.main{
+	height: 100%;
+	float: left;
+	width: 1663px;
+	background-color: #111111
+}

@@ -77,4 +77,20 @@ public interface XMLService {
      * @return
      */
     String xml2xsd(String xmlContent);
+
+    /**
+     * JSON转XML
+     * @param json
+     * @return
+     */
+    String json2xml(String json);
+
+    /**
+     * TODO
+     * 将XML字符串内容根据XSL文件转换XHTML或XML
+     * @param xmlContent
+     * @param xslFile
+     * @return
+     */
+    String xml2sthByxsl(String xmlContent, MultipartFile xslFile);
 }

@@ -56,7 +56,15 @@ public class Convert2XMLAPI {
     @ApiOperation(value = "格式化XML的内容", notes = "格式化XML的内容")
     @ApiImplicitParam(name = "xml", value = "未格式化的XML字符串", paramType = "query")
     public ResponseResult<String> formatXML(String xml) {
+        System.out.println(xmlService.formatXML(xml));
         return ResponseResult.ok(xmlService.formatXML(xml));
     }
 
+    @RequestMapping(value = "/from/json", method = RequestMethod.POST)
+    @ApiOperation(value = "将JSON数据转换成XML文件", notes = "将JSON数据转换成XML文件，并返回转换后的XML内容")
+    public ResponseResult<String> json2xml(String json){
+        String xmlContent = xmlService.json2xml(json);
+        System.out.println(xmlContent);
+        return ResponseResult.ok(xmlContent);
+    }
 }

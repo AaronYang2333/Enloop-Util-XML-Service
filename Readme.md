@@ -13,7 +13,7 @@
  5.Validate XML From XSD (根据给定的xsd文档，验证xml合法性) update By 2017-12-09<br/>
  6.XSLT (xml样式表)<br/>
  7.FormatXML (格式化XML字符串) update By 2017-12-12<br/>
- 8.JSON2XML(json转xml) <br/>
+ 8.JSON2XML(json转xml) update By 2018-01-08<br/>
  
 table2xml
 ![table2xml](http://orkf3vfng.bkt.clouddn.com/json2xml.png)
@@ -32,10 +32,20 @@ xml2xsd
 validate xml from xsd
 ![validate](http://orkf3vfng.bkt.clouddn.com/validtaexmlfromxsd.png)
 
-generate xslt
+generate xml or xhtml by xslt
+
+json2xml
+
 
 View Swagger API Document
+
 ```text
-http://localhost:8077/micro-service/xml/swagger-ui.html
+http://localhost:8177/micro-service/xml/swagger-ui.html
+```
+
+View HTML Static Pages
+
+```text
+http://localhost:8177/micro-service/xml/index.html
 ```
  

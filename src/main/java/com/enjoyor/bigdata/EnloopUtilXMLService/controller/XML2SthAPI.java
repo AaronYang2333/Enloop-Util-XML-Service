@@ -31,6 +31,7 @@ public class XML2SthAPI {
     @RequestMapping(value = "/2json", method = RequestMethod.POST, produces = {"application/json"})
     @ApiOperation(value = "将XML文件内容转换成JSON", notes = "将XML文件内容转换成JSON")
     public ResponseResult<String> xml2Json(@RequestParam(name = "xmlFile") MultipartFile xmlFile) {
+        System.out.println(xmlService.xml2Json(xmlFile));
         return ResponseResult.ok(xmlService.xml2Json(xmlFile));
     }
 
@@ -56,5 +57,13 @@ public class XML2SthAPI {
         return ResponseResult.ok(xmlService.xml2xsd(xml));
     }
 
+    @RequestMapping(value = "/2sth/by/xsl", method = RequestMethod.POST, produces = {"application/json"})
+    @ApiOperation(value = "将XML字符串内容根据XSL文件转换", notes = "将XML字符串内容根据XSL文件转换")
+    @ApiImplicitParam(value = "xmlContent", dataType = "string", paramType = "query")
+    public ResponseResult<String> xml2xsdV2(String xmlContent, @RequestParam(name = "xslFile") MultipartFile xslFile) {
+        String generatedContent = xmlService.xml2sthByxsl(xmlContent, xslFile);
+        System.out.println(generatedContent);
+        return ResponseResult.ok(generatedContent);
+    }
 
 }

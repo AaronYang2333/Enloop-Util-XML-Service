@@ -6,16 +6,13 @@ import com.enjoyor.bigdata.EnloopUtilXMLService.service.XMLService;
 import com.enjoyor.bigdata.EnloopUtilXMLService.utils.common.CmdUtil;
 import com.enjoyor.bigdata.EnloopUtilXMLService.utils.common.FileUtil;
 import com.enjoyor.bigdata.EnloopUtilXMLService.utils.common.JsonUtil;
-import com.enjoyor.bigdata.EnloopUtilXMLService.utils.common.ResponseResult;
 import com.enjoyor.bigdata.EnloopUtilXMLService.utils.validator.ParamAssert;
 import com.enjoyor.bigdata.EnloopUtilXMLService.utils.xml.GenXMLUtil;
 import com.enjoyor.bigdata.EnloopUtilXMLService.utils.xml.XMLParseUtil;
 import com.enjoyor.bigdata.EnloopUtilXMLService.utils.xml.XMLPrettyPrintUtil;
 import com.enjoyor.bigdata.EnloopUtilXMLService.utils.xml.XMLValidator;
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import net.sf.json.JSONSerializer;
+import net.sf.json.xml.XMLSerializer;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
@@ -24,7 +21,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.*;
 import java.util.List;
 import java.util.Map;
 
@@ -122,6 +118,17 @@ public class XMLServiceImpl implements XMLService {
         String xsdSavedPath = genXsdResult.get(CmdUtil.XSD_GEN_PATH).toString();
         //read the file and write the file's content into the response entity 返回文件内容
         return FileUtil.readFile(xsdSavedPath).toString();
+    }
+
+    @Override
+    public String json2xml(String json) {
+        XMLSerializer xmlSerializer = new XMLSerializer();
+        return xmlSerializer.write(JSONSerializer.toJSON(json));
+    }
+
+    @Override
+    public String xml2sthByxsl(String xmlContent, MultipartFile xslFile) {
+        return null;
     }
 
 }

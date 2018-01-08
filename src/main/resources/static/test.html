@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en-gb" class="uk-notouch">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <link rel="stylesheet" type="text/css" href="css/uikit.css" />
+    <script type="text/javascript" src='js/jquery-2.1.4.min.js'></script>
+    <script type="text/javascript" src='js/uikit.min.js'></script>
+</head>
+
+<body class="tm-background" style="">
+
+    <nav class="tm-navbar uk-navbar uk-navbar-attached">
+        <div class="uk-container uk-container-center">
+            <a class="uk-navbar-brand uk-hidden-small" href="http://www.getuikit.net/index.html">
+                <!--icon-->
+                <img class="uk-margin uk-margin-remove" src="./抽屉 - UIkit 中文文档_files/logo_uikit.svg" width="90" height="30" title="UIkit"
+                    alt="UIkit">
+            </a>
+
+            <ul class="uk-navbar-nav uk-hidden-small">
+
+            </ul>
+            <a href="http://www.getuikit.net/docs/offcanvas.html#tm-offcanvas" class="uk-navbar-toggle uk-visible-small" data-uk-offcanvas=""></a>
+            <div class="uk-navbar-brand uk-navbar-center uk-visible-small"><img src="./抽屉 - UIkit 中文文档_files/logo_uikit.svg" width="90" height="30" title="UIkit" alt="UIkit"></div>
+        </div>
+    </nav>
+
+    <div class="tm-middle">
+        <div class="uk-container uk-container-center">
+            <div class="uk-grid" data-uk-grid-margin="">
+                <div class="tm-main uk-width-medium-3-4">
+                    <!-- 这是用来触发抽屉式边栏的按钮 -->
+                    <button class="uk-button" data-uk-offcanvas="{target:'#my-id'}">...</button>
+                    <div id="my-id" class="uk-offcanvas">
+                        <div class="uk-offcanvas-bar uk-offcanvas-bar-show">
+
+                            <ul class="uk-nav uk-nav-offcanvas uk-nav-parent-icon" data-uk-nav="">
+                                <li><a href="">Item</a></li>
+                                <li class="uk-active"><a href="">Active</a></li>
+
+                                <li class="uk-parent uk-open" aria-expanded="true">
+                                    <a href="#">Parent</a>
+                                    <div style="overflow: hidden; position: relative;" class="">
+                                        <ul class="uk-nav-sub">
+                                            <li><a href="">Sub item</a></li>
+                                            <li><a href="">Sub item</a>
+                                                <ul>
+                                                    <li><a href="">Sub item</a></li>
+                                                    <li><a href="">Sub item</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+
+                                <li class="uk-parent" aria-expanded="false">
+                                    <a href="#">Parent</a>
+                                    <div style="overflow: hidden; position: relative; height: 0px;" class="uk-hidden">
+                                        <ul class="uk-nav-sub">
+                                            <li><a href="">Sub item</a></li>
+                                            <li><a href="">Sub item</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+
+                                <li><a href="">Item</a></li>
+
+                                <li class="uk-nav-header">Header</li>
+                                <li class="uk-parent"><a href=""><i class="uk-icon-star"></i> Parent</a></li>
+                                <li><a href=""><i class="uk-icon-twitter"></i> Item</a></li>
+                                <li class="uk-nav-divider"></li>
+                                <li><a href=""><i class="uk-icon-rss"></i> Item</a></li>
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="tm-footer">
+        <div class="uk-container uk-container-center uk-text-center">
+            <ul class="uk-subnav uk-subnav-line uk-flex-center">
+                <li><a href="http://github.com/uikit/uikit">GitHub</a></li>
+                <li><a href="http://github.com/uikit/uikit/issues">Issues</a></li>
+                <li><a href="http://github.com/uikit/uikit/blob/master/CHANGELOG.md">Changelog</a></li>
+                <li><a href="https://twitter.com/getuikit">Twitter</a></li>
+            </ul>
+        </div>
+    </div>
+</body>
+
+</html>
