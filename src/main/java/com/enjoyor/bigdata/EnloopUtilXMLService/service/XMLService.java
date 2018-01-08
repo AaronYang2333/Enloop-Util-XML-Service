@@ -88,9 +88,9 @@ public interface XMLService {
     /**
      * TODO
      * 将XML字符串内容根据XSL文件转换XHTML或XML
-     * @param xmlContent
+     * @param xmlFile
      * @param xslFile
      * @return
      */
-    String xml2sthByxsl(String xmlContent, MultipartFile xslFile);
+    String xml2sthByXsl(MultipartFile xmlFile, MultipartFile xslFile);
 }

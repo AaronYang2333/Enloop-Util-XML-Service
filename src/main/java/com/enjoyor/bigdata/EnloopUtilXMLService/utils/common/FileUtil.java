@@ -91,6 +91,23 @@ public class FileUtil {
         }
     }
 
+    public static String readFile(File tempFile) {
+        StringBuffer stringBuffer = new StringBuffer();
+        try {
+            FileInputStream fileInputStream = new FileInputStream(tempFile);
+            byte[] buffer = new byte[BUFFER_SIZE];
+            int hasRead = 0;
+            while ((hasRead = fileInputStream.read(buffer)) > 0) {
+                stringBuffer.append(new String(buffer, 0, hasRead));
+            }
+            return stringBuffer.toString();
+        } catch (FileNotFoundException e) {
+            throw new IORuntimeException(File.class, "读取临时文件" + tempFile.getName() + "时发生错误！");
+        } catch (IOException e) {
+            throw new IORuntimeException(InputStream.class, "从输入流中读取内容时发生错误！Exception : " + e.getLocalizedMessage());
+        }
+    }
+
     /**
      * org.springframework.web.multipart.MultipartFile -> java.io.File
      *
@@ -107,6 +124,20 @@ public class FileUtil {
         } catch (IOException e) {
             throw new IORuntimeException(MultipartFile.class, "MultipartFile.transferTo(File) 转换发生错误！");
         }
+    }
+
+    /**
+     * 在指定目录下创建一个指定文件类型的文件
+     *
+     * @param dir
+     * @param fileType
+     * @return
+     */
+    public static File createTempFile(String dir, FileType fileType) {
+        ClassLoader loader = Thread.currentThread().getContextClassLoader();
+        String fileSavePath = loader.getResource(".").getPath() + dir;
+        String xmlFileName = genFileName(fileType);
+        return new File(fileSavePath, xmlFileName);
     }
 
     /**

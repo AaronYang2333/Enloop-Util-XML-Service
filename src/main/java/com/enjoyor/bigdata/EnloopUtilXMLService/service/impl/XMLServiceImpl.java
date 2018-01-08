@@ -2,15 +2,14 @@ package com.enjoyor.bigdata.EnloopUtilXMLService.service.impl;
 
 import com.enjoyor.bigdata.EnloopUtilXMLService.entity.ValidateResult;
 import com.enjoyor.bigdata.EnloopUtilXMLService.exception.Dom4jException;
+import com.enjoyor.bigdata.EnloopUtilXMLService.exception.IORuntimeException;
+import com.enjoyor.bigdata.EnloopUtilXMLService.exception.TransformRuntimeException;
 import com.enjoyor.bigdata.EnloopUtilXMLService.service.XMLService;
 import com.enjoyor.bigdata.EnloopUtilXMLService.utils.common.CmdUtil;
 import com.enjoyor.bigdata.EnloopUtilXMLService.utils.common.FileUtil;
 import com.enjoyor.bigdata.EnloopUtilXMLService.utils.common.JsonUtil;
 import com.enjoyor.bigdata.EnloopUtilXMLService.utils.validator.ParamAssert;
-import com.enjoyor.bigdata.EnloopUtilXMLService.utils.xml.GenXMLUtil;
-import com.enjoyor.bigdata.EnloopUtilXMLService.utils.xml.XMLParseUtil;
-import com.enjoyor.bigdata.EnloopUtilXMLService.utils.xml.XMLPrettyPrintUtil;
-import com.enjoyor.bigdata.EnloopUtilXMLService.utils.xml.XMLValidator;
+import com.enjoyor.bigdata.EnloopUtilXMLService.utils.xml.*;
 import net.sf.json.JSONSerializer;
 import net.sf.json.xml.XMLSerializer;
 import org.dom4j.Document;
@@ -21,6 +20,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.xml.transform.*;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -127,8 +133,24 @@ public class XMLServiceImpl implements XMLService {
     }
 
     @Override
-    public String xml2sthByxsl(String xmlContent, MultipartFile xslFile) {
-        return null;
+    public String xml2sthByXsl(MultipartFile xmlFile, MultipartFile xslFile) {
+        TransformerFactory factory = TransformerFactory.newInstance();
+        File tempFile = FileUtil.createTempFile("/temp", FileType.XML);
+        tempFile.deleteOnExit();
+        try {
+            Templates xslTemplate = factory.newTemplates(new StreamSource(xslFile.getInputStream()));
+            Transformer xslFormer = xslTemplate.newTransformer();
+            Source source = new StreamSource(xmlFile.getInputStream());
+            Result result = new StreamResult(new FileOutputStream(tempFile));
+            xslFormer.transform(source, result);
+            return FileUtil.readFile(tempFile);
+        } catch (IOException e) {
+            throw new IORuntimeException(Templates.class, "读取需要转换的XML文件时发生错误");
+        } catch (TransformerException e) {
+            throw new TransformRuntimeException(Transformer.class, "根据XSL转换XML时发生错误");
+        } finally {
+            tempFile.delete();
+        }
     }
 
 }

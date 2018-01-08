@@ -58,10 +58,9 @@ public class XML2SthAPI {
     }
 
     @RequestMapping(value = "/2sth/by/xsl", method = RequestMethod.POST, produces = {"application/json"})
-    @ApiOperation(value = "将XML字符串内容根据XSL文件转换", notes = "将XML字符串内容根据XSL文件转换")
-    @ApiImplicitParam(value = "xmlContent", dataType = "string", paramType = "query")
-    public ResponseResult<String> xml2xsdV2(String xmlContent, @RequestParam(name = "xslFile") MultipartFile xslFile) {
-        String generatedContent = xmlService.xml2sthByxsl(xmlContent, xslFile);
+    @ApiOperation(value = "将XML文件根据XSL文件转换", notes = "将XML文件根据XSL文件转换")
+    public ResponseResult<String> xml2xsdV2(@RequestParam(name = "xmlFile") MultipartFile xmlFile, @RequestParam(name = "xslFile") MultipartFile xslFile) {
+        String generatedContent = xmlService.xml2sthByXsl(xmlFile, xslFile);
         System.out.println(generatedContent);
         return ResponseResult.ok(generatedContent);
     }
