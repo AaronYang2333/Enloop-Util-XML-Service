@@ -1,24 +1,73 @@
 
-*{
-	margin: 0px;
-	padding: 0px;
+* {
+    margin: 0px;
+    padding: 0px;
 }
-body,html{
-	height: 100%;
+
+body, html {
+    height: 100%;
 }
-.header{
-	height: 40px;
-	background-color: #cccccc
+
+.header {
+    height: 40px;
+    background-color: #cccccc
 }
-.aside{
-	height: 100%;
-	float: left;
-	width: 240px;
-	background-color: #aaaaaa
+
+.aside {
+    height: 100%;
+    float: left;
+    width: 240px;
+    background-color: #aaaaaa
 }
-.main{
-	height: 100%;
-	float: left;
-	width: 1663px;
-	background-color: #111111
+
+.main {
+    height: 100%;
+    float: left;
+    width: 1663px;
+    background-color: #111111
 }
+
+#clickButton {
+    position: absolute;
+    margin-top: 82px;
+    left: -28px;
+    height: 61px;
+    width: 94px;
+    background-color: #eeee;
+}
+
+#rowContent {
+    min-height: 500px;
+    border: 1px solid #aaaaaa;
+    border-radius: 5px;
+    resize: none;
+    height: 750px;
+    padding: 5px 20px;
+    font-size: 15px;
+}
+
+#resultContent {
+    min-height: 500px;
+    border: 1px solid #aaaaaa;
+    border-radius: 5px;
+    resize: none;
+    height: 750px;
+}
+
+#convertButton {
+    margin: 34%;
+    width: 74px;
+    top: 26%;
+}
+
+#convertTips {
+    padding-top: 6px;
+    padding-left: 0px;
+}
+
+.tm-header {
+    width: 60%;
+    height: 65px;
+    margin-left: 200px;
+}
+

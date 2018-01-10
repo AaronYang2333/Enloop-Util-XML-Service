@@ -11,7 +11,7 @@
  3.XSD2XML (根据xsd生成xml) update By 2017-11-28<br/>
  4.XML2XSD (根据xml生成xsd) update By 2017-12-29<br/>
  5.Validate XML From XSD (根据给定的xsd文档，验证xml合法性) update By 2017-12-09<br/>
- 6.generate XML by XSL (根据XSL生成XML) update By 2018-01-08<br/>
+ 6.Generate XML by XSL (根据XSL生成XML) update By 2018-01-08<br/>
  7.FormatXML (格式化XML字符串) update By 2017-12-12<br/>
  8.JSON2XML(json转xml) update By 2018-01-08<br/>
  

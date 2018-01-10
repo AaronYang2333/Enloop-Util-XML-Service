@@ -1,31 +1,127 @@
-<!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-	<title></title>
-	<link rel="stylesheet" type="text/css" href="css/index.css"/>
-	<link rel="stylesheet" type="text/css" href="css/uikit.css"/>
-	<script type="text/javascript" src='js/jquery-2.1.4.min.js'></script>
-	<script type="text/javascript" src='js/uikit.min.js'></script>
+    <meta charset="UTF-8"/>
+    <title>Enloop-Util-XML-Service</title>
+    <link rel="stylesheet" type="text/css" href="css/uikit.css"/>
+    <link rel="stylesheet" type="text/css" href="css/index.css"/>
+    <link rel="stylesheet" type="text/css" href="css/buttons.css"/>
+    <script type="text/javascript" src='js/jquery.js'></script>
+    <script type="text/javascript" src='js/uikit.js'></script>
 </head>
-<body>
-<div class="header">
-	<img src="">
+
+<body class="tm-background">
+
+<nav class="tm-navbar uk-navbar uk-navbar-attached">
+    <div class="uk-container uk-container-center">
+        <a class="uk-navbar-brand uk-hidden-small" href="#">
+            <img class="uk-margin uk-margin-remove" src="images/logo.png" width="30" height="30"
+                 title="Enloop-Util-XML-Service"
+                 alt="Enloop-Util-XML-Service">&nbsp;Enloop-Util-XML-Service
+        </a>
+    </div>
+</nav>
+
+<button id="clickButton" class="uk-button uk-icon-large button button-glow button-border button-rounded button-caution"
+        data-uk-offcanvas="{target:'#canvas'}"><a><i class=" uk-icon-large uk-icon-chevron-circle-right"></i></a>
+</button>
+<div class="tm-header uk-container-center uk-width-1-1">
+    <div id="convertTips" class="uk-block uk-block-large uk-width-*">
+        <h1>XML2JSON</h1>
+        Convert Xml to Json and Json to Xml!Simply insert your json to the left. Click the button and there you go!
+    </div>
 </div>
-<div class="aside">
-	<ul class="uk-list" id="xml2sth">
-    <li>xml2json</li>
-    <li>xml2xsd</li>
-	</ul>
-	<ul class="uk-list" id="sth2xml">
-    <li>table2xml</li>
-    <li>xsd2xml</li>
-    <li>json2xml</li>
-	</ul>
-	<ul class="uk-list" id="util">
-    <li>validate</li>
-    <li>format</li>
-	</ul>
+<div class="tm-middle">
+    <div class="uk-container-center">
+        <div class="uk-grid" data-uk-grid-margin="">
+            <div class="tm-main uk-width-4-5 uk-container-center">
+
+                <div class="uk-grid">
+                    <div class="uk-width-2-5">
+                        <textarea id="rowContent" class="uk-width-*" placeholder="Insert your xml here..."></textarea>
+                    </div>
+                    <div class="uk-width-1-5">
+                        <button id="convertButton" class="button button-3d button-box button-jumbo"><i
+                                class="uk-icon-medium uk-icon-chevron-circle-right"></i></button>
+                    </div>
+                    <div class="uk-width-2-5">
+                        <textarea id="resultContent" class="uk-width-*"></textarea>
+                    </div>
+                </div>
+
+                <div id="canvas" class="uk-offcanvas">
+                    <div class="uk-offcanvas-bar uk-offcanvas-bar-show">
+                        <ul class="uk-nav uk-nav-offcanvas uk-nav-parent-icon" data-uk-nav>
+                            <li><a href="">Enloop-Util-XML-Service </a></li>
+                            <li class="uk-nav-divider"></li>
+                            <li class="uk-nav-header">Functions</li>
+
+                            <li class="uk-parent" aria-expanded="false">
+                                <a href="#">Something2XML</a>
+                                <ul class="uk-nav-sub">
+                                    <li><a href="">Table2XML</a></li>
+                                    <li><a href="">XSD2XML</a></li>
+                                    <li><a href="">Generate XML By XSL</a></li>
+                                    <li><a href="">JSON2XML</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="uk-parent" aria-expanded="false">
+                                <a href="#">XML2Something</a>
+                                <ul class="uk-nav-sub">
+                                    <li><a href="">XML2JSON</a></li>
+                                    <li><a href="">XML2XSD</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="uk-parent" aria-expanded="false">
+                                <a href="#">Tools</a>
+                                <ul class="uk-nav-sub">
+                                    <li><a href="">Validate XML By XSD</a></li>
+                                    <li><a href="">FormatXML</a></li>
+                                </ul>
+                            </li>
+                            <li class="uk-nav-divider"></li>
+                            <li class="uk-nav-header">CopyRight</li>
+
+                            <li class="uk-parent" aria-expanded="false">
+                                <a href="#"><i class="uk-icon-star"></i>Author Info.</a>
+                                <ul class="uk-nav-sub">
+                                    <li><a><i class="uk-icon-envelope"></i>&nbsp;aaron19940628@gmail.com</a></li>
+                                    <li><a><i class="uk-icon-map-marker"></i>&nbsp;Zhejiang HangZhou, China</a></li>
+                                    <li><a><i class="uk-icon-group"></i>&nbsp;Constructors</a>
+                                        <ul>
+                                            <li><a><i class="uk-icon-user">&nbsp;Aaron Yang</i></a></li>
+                                            <li><a><i class="uk-icon-user">&nbsp;Liu XinTian</i></a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li><a href=""><i class="uk-icon-weibo"></i> WeiBo</a></li>
+                            <li><a href=""><i class="uk-icon-rss"></i> RSS</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<div class="main"></div>
+<hr class="uk-align-center uk-width-2-5"/>
+<div class="tm-footer">
+    <div class="uk-container uk-container-center uk-text-center">
+        <ul class="uk-subnav uk-subnav-line uk-flex-center">
+            <li><i class="uk-icon-medium uk-icon-github"></i>&nbsp;<a
+                    href="https://github.com/AaronYang2333/Enloop-Util-XML-Service">GitHub</a></li>
+            <li><i class="uk-icon-medium uk-icon-bug"></i>&nbsp;<a
+                    href="https://github.com/AaronYang2333/Enloop-Util-XML-Service/issues">Issues</a></li>
+            <li><i class="uk-icon-medium uk-icon-git"></i>&nbsp;<a
+                    href="https://github.com/AaronYang2333/Enloop-Util-XML-Service/blob/master/Readme.md">Changelog</a>
+            </li>
+            <li><img src="images/csdn.png"/>&nbsp;<a href="http://blog.csdn.net/aaron2333">CSDN</a></li>
+        </ul>
+    </div>
+</div>
 </body>
+
 </html>

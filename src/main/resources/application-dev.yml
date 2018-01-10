@@ -3,7 +3,7 @@ server:
   port: 8177
   tomcat:
     uriEncoding: UTF-8
-  context-path: /micro-service/xml
+  context-path: /micro-service-xml
 
 ##Logger
 logging:
