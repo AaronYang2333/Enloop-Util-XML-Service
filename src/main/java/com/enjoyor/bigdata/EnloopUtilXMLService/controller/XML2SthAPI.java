@@ -37,9 +37,9 @@ public class XML2SthAPI {
 
     @RequestMapping(value = "/2json/v2", method = RequestMethod.POST, produces = {"application/json"})
     @ApiOperation(value = "将XML字符串内容转换成JSON", notes = "将XML字符串内容转换成JSON")
-    @ApiImplicitParam(name = "xml", value = "未格式化的XML字符串", paramType = "query")
-    public ResponseResult<String> xml2JsonV2(String xml) {
-        return ResponseResult.ok(xmlService.xml2Json(xml));
+    @ApiImplicitParam(name = "rowData", value = "未格式化的XML字符串", paramType = "query")
+    public ResponseResult<String> xml2JsonV2(String rowData) {
+        return ResponseResult.ok(xmlService.xml2Json(rowData));
     }
 
     @RequestMapping(value = "/2xsd", method = RequestMethod.POST, produces = {"application/json"})
@@ -52,9 +52,9 @@ public class XML2SthAPI {
 
     @RequestMapping(value = "/2xsd/v2", method = RequestMethod.POST, produces = {"application/json"})
     @ApiOperation(value = "将XML字符串内容转换成XSD", notes = "将XML字符串内容转换成XSD")
-    @ApiImplicitParam(name = "xml", value = "未格式化的XML字符串", paramType = "query")
-    public ResponseResult<String> xml2xsd(String xml) {
-        return ResponseResult.ok(xmlService.xml2xsd(xml));
+    @ApiImplicitParam(name = "rowData", value = "未格式化的XML字符串", paramType = "query")
+    public ResponseResult<String> xml2xsd(String rowData) {
+        return ResponseResult.ok(xmlService.xml2xsd(rowData));
     }
 
     @RequestMapping(value = "/2sth/by/xsl", method = RequestMethod.POST, produces = {"application/json"})
@@ -62,7 +62,7 @@ public class XML2SthAPI {
     public ResponseResult<String> xml2xsdV2(@RequestParam(name = "xmlFile") MultipartFile xmlFile, @RequestParam(name = "xslFile") MultipartFile xslFile) {
         String generatedContent = xmlService.xml2sthByXsl(xmlFile, xslFile);
         System.out.println(generatedContent);
-        return ResponseResult.ok(generatedContent);
+        return ResponseResult.ok(xmlService.formatXML(generatedContent));
     }
 
 }

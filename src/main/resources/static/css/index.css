@@ -26,6 +26,7 @@ body, html {
     width: 1663px;
     background-color: #111111
 }
+a:link {color:#999999 !important;} 
 
 #clickButton {
     position: absolute;
@@ -41,7 +42,7 @@ body, html {
     border: 1px solid #aaaaaa;
     border-radius: 5px;
     resize: none;
-    height: 750px;
+    height: 680px;
     padding: 5px 20px;
     font-size: 15px;
 }
@@ -51,7 +52,9 @@ body, html {
     border: 1px solid #aaaaaa;
     border-radius: 5px;
     resize: none;
-    height: 750px;
+    height: 740px;
+    padding: 5px 20px;
+    font-size: 15px;
 }
 
 #convertButton {
@@ -63,11 +66,28 @@ body, html {
 #convertTips {
     padding-top: 6px;
     padding-left: 0px;
+    padding-bottom: 0px !important;
 }
 
 .tm-header {
     width: 60%;
     height: 65px;
     margin-left: 200px;
+}
+
+#upload-drop{
+    padding: 15px;
+    height: 28px;
+    border: 1px dashed #dddddd;
+    background-image: url('../images/bg-xml.png');
+    color: #444444;
+    margin-bottom: 0px;
+    border-radius: 5px;
+}
+
+#upload-tips{
+    color: #444444;
+    text-decoration: none;
+    cursor: pointer;
 }
 

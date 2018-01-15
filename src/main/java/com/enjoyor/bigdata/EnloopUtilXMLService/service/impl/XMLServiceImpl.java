@@ -1,6 +1,7 @@
 package com.enjoyor.bigdata.EnloopUtilXMLService.service.impl;
 
 import com.enjoyor.bigdata.EnloopUtilXMLService.entity.ValidateResult;
+import com.enjoyor.bigdata.EnloopUtilXMLService.exception.ConvertException;
 import com.enjoyor.bigdata.EnloopUtilXMLService.exception.Dom4jException;
 import com.enjoyor.bigdata.EnloopUtilXMLService.exception.IORuntimeException;
 import com.enjoyor.bigdata.EnloopUtilXMLService.exception.TransformRuntimeException;
@@ -10,6 +11,7 @@ import com.enjoyor.bigdata.EnloopUtilXMLService.utils.common.FileUtil;
 import com.enjoyor.bigdata.EnloopUtilXMLService.utils.common.JsonUtil;
 import com.enjoyor.bigdata.EnloopUtilXMLService.utils.validator.ParamAssert;
 import com.enjoyor.bigdata.EnloopUtilXMLService.utils.xml.*;
+import net.sf.json.JSONException;
 import net.sf.json.JSONSerializer;
 import net.sf.json.xml.XMLSerializer;
 import org.dom4j.Document;
@@ -129,7 +131,11 @@ public class XMLServiceImpl implements XMLService {
     @Override
     public String json2xml(String json) {
         XMLSerializer xmlSerializer = new XMLSerializer();
-        return xmlSerializer.write(JSONSerializer.toJSON(json));
+        try {
+            return formatXML(xmlSerializer.write(JSONSerializer.toJSON(json)));
+        } catch (JSONException e) {
+            throw new ConvertException(xmlSerializer, XMLSerializer.class,"不合法的JSON字符串，请检查");
+        }
     }
 
     @Override

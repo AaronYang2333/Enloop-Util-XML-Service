@@ -38,12 +38,12 @@ generate xml or xhtml by xslt
 View Swagger API Document
 
 ```text
-http://localhost:8177/micro-service/xml/swagger-ui.html
+http://localhost:8177/micro-service-xml/swagger-ui.html
 ```
 
 View HTML Static Pages
 
 ```text
-http://localhost:8177/micro-service/xml/index.html
+http://localhost:8177/micro-service-xml/index.html
 ```
  

@@ -36,25 +36,6 @@ public class ExceptionAspect {
     public void throwExceptionMethod() {
     }
 
-    @Around("throwExceptionMethod()")
-    public Object handlerControllerMethod(ProceedingJoinPoint proceedingJoinPoint) {
-        long startTime = System.currentTimeMillis();
-        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-        HttpServletRequest request = attributes.getRequest();
-        String url = request.getRequestURI().toString();
-        ResponseResult<?> result = null;
-        try {
-
-            result = (ResponseResult<?>) proceedingJoinPoint.proceed();
-            result.setUrl(url);
-            LOGGER.info(proceedingJoinPoint.getSignature() + " EXECUTE TIME : " + (System.currentTimeMillis() - startTime) + " ms;");
-        } catch (Throwable e) {
-            LOGGER.error(" CATCH EXCEPTION : " + e.toString());
-            result = handlerException(url,proceedingJoinPoint, e);
-        }
-        return result;
-    }
-
     private ResponseResult<?> handlerException(String url,ProceedingJoinPoint proceedingJoinPoint, Throwable e) {
         ResponseResult<?> result = new ResponseResult();
         result.setUrl(url);
@@ -75,6 +56,25 @@ public class ExceptionAspect {
             result.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
         }
 
+        return result;
+    }
+
+    @Around("throwExceptionMethod()")
+    public Object handlerControllerMethod(ProceedingJoinPoint proceedingJoinPoint) {
+        long startTime = System.currentTimeMillis();
+        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        HttpServletRequest request = attributes.getRequest();
+        String url = request.getRequestURI().toString();
+        ResponseResult<?> result = null;
+        try {
+
+            result = (ResponseResult<?>) proceedingJoinPoint.proceed();
+            result.setUrl(url);
+            LOGGER.info(proceedingJoinPoint.getSignature() + " EXECUTE TIME : " + (System.currentTimeMillis() - startTime) + " ms;");
+        } catch (Throwable e) {
+            LOGGER.error(" CATCH EXCEPTION : " + e.toString());
+            result = handlerException(url,proceedingJoinPoint, e);
+        }
         return result;
     }
 

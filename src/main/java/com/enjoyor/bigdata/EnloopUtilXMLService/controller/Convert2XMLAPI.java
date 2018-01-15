@@ -3,6 +3,7 @@ package com.enjoyor.bigdata.EnloopUtilXMLService.controller;
 import com.enjoyor.bigdata.EnloopUtilXMLService.entity.TableEntity;
 import com.enjoyor.bigdata.EnloopUtilXMLService.entity.ValidateResult;
 import com.enjoyor.bigdata.EnloopUtilXMLService.service.XMLService;
+import com.enjoyor.bigdata.EnloopUtilXMLService.utils.common.JsonUtil;
 import com.enjoyor.bigdata.EnloopUtilXMLService.utils.common.ResponseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -31,8 +32,8 @@ public class Convert2XMLAPI {
 
     @RequestMapping(value = "/from/table", method = RequestMethod.POST)
     @ApiOperation(value = "将表格数据转换成XML文件", notes = "将表格数据转换成XML文件，并返回转换后的XML内容")
-    public ResponseResult<String> table2XML(@RequestBody List<TableEntity> entityList) {
-        String xml = xmlService.table2Xml(entityList);
+    public ResponseResult<String> table2XML(@RequestBody List<TableEntity> rowData) {
+        String xml = xmlService.table2Xml(rowData);
         System.out.println(xml);
         return ResponseResult.ok(xml);
     }
@@ -49,22 +50,20 @@ public class Convert2XMLAPI {
     @ApiOperation(value = "验证XML文档", notes = "根据给定的XSD文件，验证XML文档的合法性，返回出错内容及行数")
     public ResponseResult<String> xsd2XML(@RequestParam(name = "xsdFile") MultipartFile xsdFile,
                                           @RequestParam(name = "xmlFile") MultipartFile xmlFile) {
-        return ResponseResult.ok(xmlService.validate(xsdFile, xmlFile));
+        return ResponseResult.ok(JsonUtil.obj2Json(xmlService.validate(xsdFile, xmlFile)));
     }
 
-    @RequestMapping(value = "/format", method = RequestMethod.GET, produces = {"application/json"})
+    @RequestMapping(value = "/format", method = RequestMethod.POST, produces = {"application/json"})
     @ApiOperation(value = "格式化XML的内容", notes = "格式化XML的内容")
-    @ApiImplicitParam(name = "xml", value = "未格式化的XML字符串", paramType = "query")
-    public ResponseResult<String> formatXML(String xml) {
-        System.out.println(xmlService.formatXML(xml));
-        return ResponseResult.ok(xmlService.formatXML(xml));
+    @ApiImplicitParam(name = "rowData", value = "未格式化的XML字符串", paramType = "query")
+    public ResponseResult<String> formatXML(String rowData) {
+        return ResponseResult.ok(xmlService.formatXML(rowData));
     }
 
-    @RequestMapping(value = "/from/json", method = RequestMethod.POST)
+    @RequestMapping(value = "/from/json", method = RequestMethod.POST , produces = {"application/json"})
     @ApiOperation(value = "将JSON数据转换成XML文件", notes = "将JSON数据转换成XML文件，并返回转换后的XML内容")
-    public ResponseResult<String> json2xml(String json){
-        String xmlContent = xmlService.json2xml(json);
-        System.out.println(xmlContent);
+    public ResponseResult<String> json2xml(String rowData){
+        String xmlContent = xmlService.json2xml(rowData);
         return ResponseResult.ok(xmlContent);
     }
 }
