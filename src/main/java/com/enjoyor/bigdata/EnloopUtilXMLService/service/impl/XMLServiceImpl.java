@@ -159,4 +159,14 @@ public class XMLServiceImpl implements XMLService {
         }
     }
 
+    @Override
+    public String compress(String xmlContent) {
+        ParamAssert.isBlank(xmlContent,"需要压缩的XML内容不能为空");
+        try{
+            return xmlContent.replaceAll("[\\s&&[^\r\n]]*(?:[\r\n][\\s&&[^\r\n]]*)+", "");
+        }catch (Exception e){
+            throw new IORuntimeException(String.class, "输入的XML内容可能不正确");
+        }
+    }
+
 }

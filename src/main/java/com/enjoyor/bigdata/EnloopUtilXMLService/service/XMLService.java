@@ -80,17 +80,23 @@ public interface XMLService {
 
     /**
      * JSON转XML
-     * @param json
+     * @param json  JSON字符串
      * @return
      */
     String json2xml(String json);
 
     /**
-     * TODO
      * 将XML字符串内容根据XSL文件转换XHTML或XML
-     * @param xmlFile
-     * @param xslFile
+     * @param xmlFile   XML文件对象
+     * @param xslFile   XSL文件对象
      * @return
      */
     String xml2sthByXsl(MultipartFile xmlFile, MultipartFile xslFile);
+
+    /**
+     * 压缩XML内容
+     * @param xmlContent    XML字符串
+     * @return
+     */
+    String compress(String xmlContent);
 }

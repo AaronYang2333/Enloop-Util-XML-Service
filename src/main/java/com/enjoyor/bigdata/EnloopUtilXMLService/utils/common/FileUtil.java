@@ -1,6 +1,7 @@
 package com.enjoyor.bigdata.EnloopUtilXMLService.utils.common;
 
 import com.enjoyor.bigdata.EnloopUtilXMLService.exception.IORuntimeException;
+import com.enjoyor.bigdata.EnloopUtilXMLService.utils.validator.ParamAssert;
 import com.enjoyor.bigdata.EnloopUtilXMLService.utils.xml.FileType;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -154,17 +155,23 @@ public class FileUtil {
         String xmlFileName = genFileName(FileType.XML);
         result.put(XML_GEN_PATH, (fileSavePath + xmlFileName).substring(1));
         File xmlFile = new File(fileSavePath, xmlFileName);
+        sinkContentIntoFile(xmlFile, fileContent);
+        return result;
+    }
+
+    public static File sinkContentIntoFile(File file, String fileContent) {
+        ParamAssert.isNull(file, "需要写入的文件对象不能为空");
         try {
-            FileWriter xmlfileWriter = new FileWriter(xmlFile);
+            FileWriter xmlfileWriter = new FileWriter(file);
             xmlfileWriter.write(fileContent);
             xmlfileWriter.flush();
             xmlfileWriter.close();
         } catch (FileNotFoundException e) {
-            throw new IORuntimeException(File.class, "读取临时文件" + xmlFileName + "时发生错误！");
+            throw new IORuntimeException(File.class, "读取文件" + file.getName() + "时发生错误！");
         } catch (IOException e) {
-            throw new IORuntimeException(FileWriter.class, "写入临时文件" + xmlFileName + "时发生错误！");
+            throw new IORuntimeException(FileWriter.class, "写入文件" + file.getName() + "时发生错误！");
         }
-        return result;
+        return file;
     }
 
 
@@ -185,6 +192,10 @@ public class FileUtil {
 
     public static String genFileName(FileType fileType) {
         return "TEMP_FILE_" + new Date().getTime() + fileType.getSuffix();
+    }
+
+    public static String genFileName(String suffix) {
+        return "TEMP_FILE_" + new Date().getTime() + "." + suffix;
     }
 
 }

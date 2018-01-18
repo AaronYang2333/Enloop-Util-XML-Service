@@ -6,6 +6,7 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import jdk.nashorn.internal.runtime.regexp.joni.Regex;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -93,4 +94,5 @@ public class JsonUtil {
     private static void fail(Class<?> clazz, String errorMsg) {
         throw new IORuntimeException(clazz, errorMsg);
     }
+
 }

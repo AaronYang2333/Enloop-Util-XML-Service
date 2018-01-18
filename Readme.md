@@ -14,6 +14,8 @@
  6.Generate XML by XSL (根据XSL生成XML) update By 2018-01-08<br/>
  7.FormatXML (格式化XML字符串) update By 2017-12-12<br/>
  8.JSON2XML(json转xml) update By 2018-01-08<br/>
+ 9.Compress(压缩)update By 2018-01-18<br/>
+ 10.generate File && Download(生成文件并下载)update By 2018-01-18<br/>
  
 table2xml
 ![table2xml](http://orkf3vfng.bkt.clouddn.com/json2xml.png)

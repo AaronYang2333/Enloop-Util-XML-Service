@@ -65,4 +65,11 @@ public class XML2SthAPI {
         return ResponseResult.ok(xmlService.formatXML(generatedContent));
     }
 
+    @RequestMapping(value = "/compress", method = RequestMethod.POST, produces = {"application/json"})
+    @ApiOperation(value = "将XML字符串内容压缩", notes = "将XML字符串内容压缩")
+    @ApiImplicitParam(name = "rowData", value = "已经格式化的XML字符串", paramType = "query")
+    public ResponseResult<String> compress(String rowData) {
+        return ResponseResult.ok(xmlService.compress(rowData));
+    }
+
 }
