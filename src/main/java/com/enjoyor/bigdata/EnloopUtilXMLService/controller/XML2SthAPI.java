@@ -31,7 +31,6 @@ public class XML2SthAPI {
     @RequestMapping(value = "/2json", method = RequestMethod.POST, produces = {"application/json"})
     @ApiOperation(value = "将XML文件内容转换成JSON", notes = "将XML文件内容转换成JSON")
     public ResponseResult<String> xml2Json(@RequestParam(name = "xmlFile") MultipartFile xmlFile) {
-        System.out.println(xmlService.xml2Json(xmlFile));
         return ResponseResult.ok(xmlService.xml2Json(xmlFile));
     }
 

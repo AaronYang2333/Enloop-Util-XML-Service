@@ -26,7 +26,11 @@ body, html {
     width: 1663px;
     background-color: #111111
 }
-a:link {color:#999999 !important;} 
+a:link {color:#999999 !important;}
+
+.uk-button-link{
+    color: #999999;
+}
 
 #clickButton {
     position: absolute;
@@ -50,13 +54,22 @@ a:link {color:#999999 !important;}
 #resultContent {
     min-height: 500px;
     border: 1px solid #aaaaaa;
-    border-radius: 5px;
+    border-top: none;
+    border-radius: 0px 0px 5px 5px;
     resize: none;
-    height: 740px;
+    height: 705px;
     padding: 5px 20px;
     font-size: 15px;
 }
 
+#quickButton{
+    border: 1px solid #aaaaaa;
+    border-radius: 5px 5px 0px 0px;
+    height: 35px;
+}
+#quickButton .uk-button.uk-button-link{
+    margin-top: 5px;
+}
 #convertButton {
     margin: 34%;
     width: 74px;
@@ -90,4 +103,15 @@ a:link {color:#999999 !important;}
     text-decoration: none;
     cursor: pointer;
 }
+
+#navbar{
+    top: 35px;
+    left: 243px; !important;
+}
+
+/*.uk-dropdown, .uk-dropdown-blank{*/
+    /*position:*/
+    /*z-index: 1020;*/
+    /*box-sizing: border-box;*/
+/*}*/
 

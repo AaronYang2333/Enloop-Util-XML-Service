@@ -63,7 +63,7 @@ public class Convert2XMLAPI {
     @RequestMapping(value = "/from/json", method = RequestMethod.POST , produces = {"application/json"})
     @ApiOperation(value = "将JSON数据转换成XML文件", notes = "将JSON数据转换成XML文件，并返回转换后的XML内容")
     public ResponseResult<String> json2xml(String rowData){
-        String xmlContent = xmlService.json2xml(rowData);
+        String xmlContent = xmlService.json2xml(JsonUtil.plain(rowData));
         return ResponseResult.ok(xmlContent);
     }
 }
