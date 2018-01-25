@@ -2,6 +2,7 @@ package com.enjoyor.bigdata.EnloopUtilXMLService.controller.download;
 
 import com.enjoyor.bigdata.EnloopUtilXMLService.exception.IORuntimeException;
 import com.enjoyor.bigdata.EnloopUtilXMLService.utils.common.FileUtil;
+import com.enjoyor.bigdata.EnloopUtilXMLService.utils.validator.ParamAssert;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -37,9 +38,10 @@ public class GenFileAndDownloadAPI {
     })
     public void downloadFileItem(HttpServletRequest request, HttpServletResponse response, String rowData, String suffix) {
         //包装内容，并生成一个文件
-        File generatedFile = generateFile(rowData, suffix);
-        //获取要下载文件的文件流
+        ParamAssert.isBlank(rowData, "无内容，请检查！");
         try {
+            File generatedFile = generateFile(rowData.substring(8), suffix);
+            //获取要下载文件的文件流
             InputStream fis = new FileInputStream(generatedFile);
             Long fileSize = generatedFile.length();
             request.setCharacterEncoding("UTF-8");
@@ -60,6 +62,8 @@ public class GenFileAndDownloadAPI {
             fis.close();
         } catch (IOException e) {
             throw new IORuntimeException(OutputStream.class, "下载文件时发生错误");
+        } catch (IndexOutOfBoundsException e) {
+            throw new IORuntimeException(String.class, "文件内容似乎不正确，请检查！");
         }
     }
 

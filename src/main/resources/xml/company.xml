@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<companies xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.w3school.com.cn" xmlns="http://www.w3school.com.cn">
+	<company region="China">
+		<!--This is a comment for Enjoyor-->
+		<eng_name>Enjoyor</eng_name>
+		<chn_name>银江股份</chn_name>
+		<stock>
+			<stock_number>sz300020</stock_number>
+			<TTM>2009-09-30</TTM>
+		</stock>
+		<registration_time>1992-11-13</registration_time>
+	</company>
+</companies>
