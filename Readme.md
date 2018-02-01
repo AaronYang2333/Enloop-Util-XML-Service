@@ -17,6 +17,9 @@
  9.Compress(压缩)update By 2018-01-18<br/>
  10.generate File && Download(生成文件并下载)update By 2018-01-18<br/>
  
+static page
+![static_page](http://orkf3vfng.bkt.clouddn.com/util_xml_page.png)
+ 
 table2xml
 ![table2xml](http://orkf3vfng.bkt.clouddn.com/json2xml.png)
 
