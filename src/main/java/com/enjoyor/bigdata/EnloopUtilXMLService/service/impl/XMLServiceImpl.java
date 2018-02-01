@@ -21,6 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.xml.sax.SAXException;
 
 import javax.xml.transform.*;
 import javax.xml.transform.stream.StreamResult;
@@ -103,7 +104,11 @@ public class XMLServiceImpl implements XMLService {
     @Override
     public String xml2Json(String xmlContent) {
         ParamAssert.isBlank(xmlContent, "XML内容不能为空！");
-        return JsonUtil.format(JsonUtil.xml2Json(xmlContent));
+        try {
+            return JsonUtil.format(JsonUtil.xml2Json(xmlContent));
+        } catch (Exception e) {
+           throw e;
+        }
     }
 
     @Override

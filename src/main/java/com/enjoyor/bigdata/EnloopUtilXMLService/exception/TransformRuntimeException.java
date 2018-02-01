@@ -25,4 +25,10 @@ public class TransformRuntimeException extends RuntimeException {
         this.errorMsg = errorMsg;
         this.clazz = clazz;
     }
+
+    public TransformRuntimeException( String errorMsg) {
+        super(errorMsg);
+        this.errorMsg = errorMsg;
+        this.clazz = null;
+    }
 }

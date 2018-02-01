@@ -142,7 +142,7 @@ function MenuClick() {
             $("#upload-select2").attr("name", "");
             $("#upload-select1").attr("name", leftMenuData[gTitle].file[0]);
             $("#file-div-1").attr("class", "uk-width-*")
-            $("#upload-drop").css("background-image", "url('images/bg-xml.png')");
+            $("#upload-drop").css("background-image", "url('images/bg-xsd.png')");
             $("#rowContent").css("height","540px");
         } else if (leftMenuData[gTitle].file.length == 2) {
             $("#upload-drop").show();

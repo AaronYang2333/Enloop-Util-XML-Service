@@ -140,6 +140,7 @@
             <version>2.2.1</version>
         </dependency>
 
+        <!--assign xercesImpl version 2.11.0-->
         <dependency>
             <groupId>xerces</groupId>
             <artifactId>xercesImpl</artifactId>

@@ -82,8 +82,10 @@ a:link {color:#999999 !important;}
 }
 #convertButton {
     margin: 34%;
+    margin-top: 256px;
     width: 74px;
     top: 26%;
+    border: 2px solid #BFBFBF;
 }
 
 #convertTips {
@@ -102,7 +104,7 @@ a:link {color:#999999 !important;}
     padding: 15px;
     height: 28px;
     border: 1px dashed #dddddd;
-    background-image: url('../images/bg-xml.png');
+    background-image: url('../images/bg-xsd.png');
     color: #444444;
     margin-bottom: 0px;
     border-radius: 5px;

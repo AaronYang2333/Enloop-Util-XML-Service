@@ -1,18 +1,16 @@
 package com.enjoyor.bigdata.EnloopUtilXMLService.utils.common;
 
 import com.enjoyor.bigdata.EnloopUtilXMLService.exception.IORuntimeException;
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonParser;
+import com.enjoyor.bigdata.EnloopUtilXMLService.exception.TransformRuntimeException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import net.sf.json.xml.XMLSerializer;
+import org.xml.sax.SAXException;
 
 import java.io.IOException;
-import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.enjoyor.bigdata.EnloopUtilXMLService.utils.common.FileUtil.closeAllStream;
 
 /**
  * @author Aaron Yang (yb)
@@ -66,18 +64,8 @@ public class JsonUtil {
     }
 
     public static String xml2Json(String xmlContent) {
-        StringWriter stringWriter = new StringWriter();
-        try {
-            JsonParser jsonParser = XMLMAPPER.getFactory().createParser(xmlContent);
-            JsonGenerator jsonGenerator = OBJECTMAPPER.getFactory().createGenerator(stringWriter);
-            while (jsonParser.nextToken() != null) {
-                jsonGenerator.copyCurrentEvent(jsonParser);
-            }
-            closeAllStream(jsonParser,jsonGenerator);
-        } catch (Exception e) {
-            fail(OBJECTMAPPER.getClass(), "XML2JSON发生错误");
-        }
-        return stringWriter.toString();
+        XMLSerializer xmlSerializer = new XMLSerializer();
+        return xmlSerializer.read(xmlContent).toString();
     }
 
     public static String format(String rowJson) {
