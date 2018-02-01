@@ -10,17 +10,23 @@ package com.enjoyor.bigdata.EnloopUtilXMLService.utils.xml;
  */
 public enum FileType {
 
-    XML(".xml"),
-    XSD(".xsd"),
-    XSLT(".xslt");
+    XML(".xml", "XML_GEN_PATH"),
+    XSD(".xsd", "XSD_GEN_PATH"),
+    XSL(".xslt", "XSL_GEN_PATH");
 
     private String suffix;
+    private String fileSavePath;
 
-    FileType(String suffix) {
+    FileType(String suffix, String fileSavePath) {
         this.suffix = suffix;
+        this.fileSavePath = fileSavePath;
     }
 
     public String getSuffix() {
         return suffix;
+    }
+
+    public String getFileSavePath() {
+        return fileSavePath;
     }
 }

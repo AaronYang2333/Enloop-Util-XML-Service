@@ -33,17 +33,13 @@ public class Convert2XMLAPI {
     @RequestMapping(value = "/from/table", method = RequestMethod.POST)
     @ApiOperation(value = "将表格数据转换成XML文件", notes = "将表格数据转换成XML文件，并返回转换后的XML内容")
     public ResponseResult<String> table2XML(@RequestBody List<TableEntity> rowData) {
-        String xml = xmlService.table2Xml(rowData);
-        System.out.println(xml);
-        return ResponseResult.ok(xml);
+        return ResponseResult.ok(xmlService.table2Xml(rowData));
     }
 
     @RequestMapping(value = "/from/xsd/file", method = RequestMethod.POST, produces = {"application/json"})
     @ApiOperation(value = "将XSD文件转换成XML文件并填充内容", notes = "将XSD文件转换成XML文件并填充内容，返回填充后的XML内容")
     public ResponseResult<String> xsd2XML(@RequestParam(name = "xsdFile") MultipartFile xsdFile) {
-        String xml = xmlService.xsd2xml(xsdFile);
-        System.out.println(xml);
-        return ResponseResult.ok(xml);
+        return ResponseResult.ok(xmlService.xsd2xml(xsdFile));
     }
 
     @RequestMapping(value = "/validate", method = RequestMethod.POST, produces = {"application/json"})
@@ -63,7 +59,6 @@ public class Convert2XMLAPI {
     @RequestMapping(value = "/from/json", method = RequestMethod.POST , produces = {"application/json"})
     @ApiOperation(value = "将JSON数据转换成XML文件", notes = "将JSON数据转换成XML文件，并返回转换后的XML内容")
     public ResponseResult<String> json2xml(String rowData){
-        String xmlContent = xmlService.json2xml(JsonUtil.plain(rowData));
-        return ResponseResult.ok(xmlContent);
+        return ResponseResult.ok(xmlService.json2xml(JsonUtil.plain(rowData)));
     }
 }

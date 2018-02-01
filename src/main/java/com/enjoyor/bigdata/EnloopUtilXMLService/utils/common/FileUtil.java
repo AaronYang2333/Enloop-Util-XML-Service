@@ -25,6 +25,10 @@ public class FileUtil {
 
     private static final Integer BUFFER_SIZE = 1024;
 
+    public static String GEN_FILE_NAME = "GEN_FILE_NAME";
+
+    public static String GEN_FILE_SAVED_PATH = "GEN_FILE_SAVED_PATH";
+
     /**
      * 获得MultipartFile类型文件的输入流
      *
@@ -148,12 +152,14 @@ public class FileUtil {
      * @param fileContent
      * @return
      */
-    public static Map<String, Object> saveFile(String dir, String fileContent) {
+    public static Map<String, Object> saveFile(String dir, String fileContent, FileType fileType) {
         Map<String, Object> result = new HashMap<>();
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         String fileSavePath = loader.getResource(".").getPath() + dir;
-        String xmlFileName = genFileName(FileType.XML);
-        result.put(XML_GEN_PATH, (fileSavePath + xmlFileName).substring(1));
+        String xmlFileName = genFileName(fileType);
+        result.put(fileType.getFileSavePath(), (fileSavePath + xmlFileName).substring(1));
+        result.put(GEN_FILE_NAME, xmlFileName);
+        result.put(GEN_FILE_SAVED_PATH, fileSavePath);
         File xmlFile = new File(fileSavePath, xmlFileName);
         sinkContentIntoFile(xmlFile, fileContent);
         return result;

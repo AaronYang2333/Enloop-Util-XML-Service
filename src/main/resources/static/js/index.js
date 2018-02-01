@@ -135,7 +135,7 @@ function MenuClick() {
         if (leftMenuData[gTitle].file.length == 0) {
             $("#upload-drop").hide();
             $("#upload-drop").css("background-image", "url('images/bg.png')");
-            $("#rowContent").css("height","740px");
+            $("#rowContent").css("height","600px");
         } else if (leftMenuData[gTitle].file.length == 1) {
             $("#upload-drop").show();
             $("#file-div-2").hide();
@@ -143,7 +143,7 @@ function MenuClick() {
             $("#upload-select1").attr("name", leftMenuData[gTitle].file[0]);
             $("#file-div-1").attr("class", "uk-width-*")
             $("#upload-drop").css("background-image", "url('images/bg-xml.png')");
-            $("#rowContent").css("height","680px");
+            $("#rowContent").css("height","540px");
         } else if (leftMenuData[gTitle].file.length == 2) {
             $("#upload-drop").show();
             if (gTitle == 'Validate XML By XSD') {
@@ -151,7 +151,7 @@ function MenuClick() {
             } else {
                 $("#upload-drop").css("background-image", "url('images/bg-xmlxsl.png')");
             }
-            $("#rowContent").css("height","680px");
+            $("#rowContent").css("height","540px");
             $("#file-div-2").show();
             $("#upload-select1").attr("name", leftMenuData[gTitle].file[0]);
             $("#upload-select2").attr("name", leftMenuData[gTitle].file[1]);

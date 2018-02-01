@@ -87,7 +87,7 @@ video {
   vertical-align: middle;
 }
 img {
-  max-width: 100%;
+  max-width: 80%;
   height: auto;
   box-sizing: border-box;
   border: 0;
@@ -1536,7 +1536,7 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
   box-sizing: border-box;
   display: block;
   height: 41px;
-  padding: 0 15px;
+  /*padding: 0 15px;*/
   float: left;
   margin-top: -1px;
   text-shadow: 0 1px 0 #ffffff;

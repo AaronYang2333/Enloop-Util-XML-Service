@@ -15,13 +15,14 @@
 <body class="tm-background">
 
 <nav class="tm-navbar uk-navbar uk-navbar-attached">
-    <div class="uk-container uk-container-center">
+    <div class="uk-container uk-container-center" style="padding-left: 17px;">
         <a class="uk-navbar-brand uk-hidden-small" href="#">
             <img class="uk-margin uk-margin-remove" src="images/logo.png" width="30" height="30"
                  title="Enloop-Util-XML-Service" alt="Enloop-Util-XML-Service">&nbsp;Enloop-Util-XML-Service
         </a>
 
-        <a class="uk-navbar-brand uk-hidden-small" href="http://localhost:8177/micro-service-xml/swagger-ui.html">
+        <a class="uk-navbar-brand uk-hidden-small" href="http://localhost:8177/micro-service-xml/swagger-ui.html"
+           style="padding-left: 50px;">
             <img class="uk-margin uk-margin-remove" src="images/swagger.png" width="30" height="30">
             <label style="text-decoration:underline"> API Interface</label></a>
     </div>
@@ -30,7 +31,7 @@
 <button id="clickButton" class="uk-button uk-icon-large button button-border button-rounded button-caution"
         data-uk-offcanvas="{target:'#canvas'}">
     <a>
-        <i class=" uk-icon-large uk-icon-chevron-circle-right"></i>
+        <img src="images/circle-right.png"/>
     </a>
 </button>
 <div class="tm-content">
@@ -219,10 +220,9 @@
         </div>
     </div>
 </div>
-<hr class="uk-align-center uk-width-2-5"/>
-<div class="tm-footer">
-    <div class="uk-container uk-container-center uk-text-center">
-        <ul class="uk-subnav uk-subnav-line uk-flex-center">
+<div class="tm-footer" id="page-footer">
+    <div class="uk-container uk-container-center uk-text-center" style="background-color: #F8F8F8;">
+        <ul class="uk-subnav uk-subnav-line uk-flex-center" style="margin-top: 17px;">
             <li>
                 <i class="uk-icon-medium uk-icon-github"></i>&nbsp;
                 <a href="https://github.com/AaronYang2333/Enloop-Util-XML-Service">GitHub</a>
@@ -241,7 +241,7 @@
             </li>
         </ul>
         <div class="uk-panel">
-            <p>Licensed under
+            <p style="margin-top: 17px;">Licensed under
                 <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License</a>.</p>
         </div>
     </div>

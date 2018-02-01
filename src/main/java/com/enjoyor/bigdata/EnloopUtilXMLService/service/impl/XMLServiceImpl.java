@@ -66,15 +66,14 @@ public class XMLServiceImpl implements XMLService {
         ParamAssert.isNull(xsdFile, "需要指定XSD，才能生成XML");
         LOGGER.info("接收到XSD文件" + xsdFile.getOriginalFilename() + ",开始转换！");
         //读取XSD文件内容
-        StringBuffer xsdDataFromFile = FileUtil.readFile(xsdFile);
         try {
             //首先尝试从本地转换生成XML
             LOGGER.info("尝试采用本地解析策略...");
-            return GenXMLUtil.genXMLInLocal(xsdFile, XMLParseUtil.getLocalPart(xsdDataFromFile));
+            return GenXMLUtil.genXMLInLocal(xsdFile);
         } catch (Exception e) {
             //出错后，远程调用解析XSD
             LOGGER.info("本地策略解析失败，尝试外部解析！");
-            return GenXMLUtil.genXMLByHTTP(xsdDataFromFile);
+            return GenXMLUtil.genXMLByHTTP(FileUtil.readFile(xsdFile));
         }
     }
 
@@ -118,8 +117,8 @@ public class XMLServiceImpl implements XMLService {
     public String xml2xsd(String xmlContent) {
         ParamAssert.isBlank(xmlContent, "XML内容不能为空！");
         //write a temp file which contain parameter's content in local file system 先在本地写一个文件
-        Map<String, Object> saveFileResult = FileUtil.saveFile(XML_SAVE_PATH, xmlContent);
-        String xmlSavedPath = saveFileResult.get(FileUtil.XML_GEN_PATH).toString();
+        Map<String, Object> saveFileResult = FileUtil.saveFile(XML_SAVE_PATH, xmlContent, FileType.XML);
+        String xmlSavedPath = saveFileResult.get(FileType.XML.getFileSavePath()).toString();
         //then use 'java -jar trang.jar aaa.xml bbb.xsd' to generate a xsd file 用命令转换
         Map<String, String> genXsdResult = CmdUtil.trang(xmlSavedPath);
         //after translation, u can get the path where the xsd file generated 转换完成之后，读取生成的XSD文件

@@ -44,9 +44,7 @@ public class XML2SthAPI {
     @RequestMapping(value = "/2xsd", method = RequestMethod.POST, produces = {"application/json"})
     @ApiOperation(value = "将XML字符串内容转换成XSD", notes = "将XML字符串内容转换成XSD")
     public ResponseResult<String> xml2xsdV2(@RequestParam(name = "xmlFile") MultipartFile xmlFile) {
-        String xsdContent = xmlService.xml2xsd(xmlFile);
-        System.out.println(xsdContent);
-        return ResponseResult.ok(xsdContent);
+        return ResponseResult.ok(xmlService.xml2xsd(xmlFile));
     }
 
     @RequestMapping(value = "/2xsd/v2", method = RequestMethod.POST, produces = {"application/json"})
@@ -60,7 +58,6 @@ public class XML2SthAPI {
     @ApiOperation(value = "将XML文件根据XSL文件转换", notes = "将XML文件根据XSL文件转换")
     public ResponseResult<String> xml2xsdV2(@RequestParam(name = "xmlFile") MultipartFile xmlFile, @RequestParam(name = "xslFile") MultipartFile xslFile) {
         String generatedContent = xmlService.xml2sthByXsl(xmlFile, xslFile);
-        System.out.println(generatedContent);
         return ResponseResult.ok(xmlService.formatXML(generatedContent));
     }
 

@@ -301,8 +301,8 @@
 
 .button-caution,
 .button-caution-flat {
-    background-color: #FF4351;
-    border-color: #FF4351;
+    /*background-color: #FF4351;*/
+    /*border-color: #FF4351;*/
     color: #FFF; }
 .button-caution:visited,
 .button-caution-flat:visited {
@@ -311,14 +311,14 @@
 .button-caution-flat:hover,
 .button-caution-flat:focus {
     background-color: #ff7680;
-    border-color: #ff7680;
+    border-color: #BBBBBB;
     color: #FFF; }
 .button-caution:active, .button-caution.active, .button-caution.is-active,
 .button-caution-flat:active,
 .button-caution-flat.active,
 .button-caution-flat.is-active {
     background-color: #f64c59;
-    border-color: #f64c59;
+    border-color: #BBBBBB;
     color: #ff1022; }
 
 .button-royal,
@@ -572,7 +572,7 @@
 .button-border.button-caution, .button-caution.button-border-thin, .button-caution.button-border-thick,
 .button-border-thin.button-caution,
 .button-border-thick.button-caution {
-    color: #FF4351; }
+    color: #BBBBBB; }
 .button-border.button-caution:hover, .button-caution.button-border-thin:hover, .button-caution.button-border-thick:hover, .button-border.button-caution:focus, .button-caution.button-border-thin:focus, .button-caution.button-border-thick:focus,
 .button-border-thin.button-caution:hover,
 .button-border-thin.button-caution:focus,

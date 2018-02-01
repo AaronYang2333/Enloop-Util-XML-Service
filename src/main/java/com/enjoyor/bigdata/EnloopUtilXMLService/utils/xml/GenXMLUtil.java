@@ -2,18 +2,26 @@ package com.enjoyor.bigdata.EnloopUtilXMLService.utils.xml;
 
 import com.enjoyor.bigdata.EnloopUtilXMLService.utils.common.FileUtil;
 import com.enjoyor.bigdata.EnloopUtilXMLService.utils.common.HttpClientUtil;
-import com.enjoyor.bigdata.EnloopUtilXMLService.utils.validator.ParamAssert;
+import jlibs.xml.sax.XMLDocument;
+import jlibs.xml.xsd.XSInstance;
+import jlibs.xml.xsd.XSParser;
 import org.apache.commons.lang3.StringEscapeUtils;
-import org.apache.ws.commons.schema.XmlSchema;
-import org.apache.ws.commons.schema.XmlSchemaCollection;
+import org.apache.xerces.xs.XSModel;
+import org.apache.xmlbeans.SchemaGlobalElement;
+import org.apache.xmlbeans.SchemaTypeSystem;
+import org.apache.xmlbeans.XmlBeans;
+import org.apache.xmlbeans.XmlObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.xml.namespace.QName;
-import javax.xml.transform.stream.StreamSource;
-import java.io.InputStream;
+import javax.xml.transform.stream.StreamResult;
+import java.io.File;
+import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -28,31 +36,46 @@ public class GenXMLUtil {
 
     private static final Logger LOOGER = LoggerFactory.getLogger(GenXMLUtil.class);
 
-    private static XmlSchemaCollection coll = new XmlSchemaCollection();
-    private static XmlGenOptions options = new XmlGenOptions();
-    private static SchemaTypeXmlGenerator generator = new SchemaTypeXmlGenerator(coll, options);
-    private static XmlSchema schema;
+    private static final String XSD_SAVE_PATH = "xsd/";
 
-    public static String genXMLInLocal(MultipartFile xsdFile, String localPart) {
-        InputStream xsdInputStream = FileUtil.getInputStream(xsdFile);
-        ParamAssert.isNull(xsdInputStream, "获取的文件的输入流为空！");
-        LOOGER.info("成功读取到文件数据，开始进行转换 XSD->XML");
-        coll.setBaseUri("https://github.com/AaronYang2333/Enloop-Util-XML-Service");
-        StreamSource source = new StreamSource(xsdInputStream);
-        schema = coll.read(source);
+    /**
+     * 在本地使用XSModel进行转换
+     * @param xsdFile
+     * @return
+     * @throws Exception
+     */
+    public static String genXMLInLocal(MultipartFile xsdFile) throws Exception {
+        Map<String, Object> saveFileResult = FileUtil.saveFile(XSD_SAVE_PATH, String.valueOf(FileUtil.readFile(xsdFile)), FileType.XSD);
+        String fileFullPath = saveFileResult.get(FileType.XSD.getFileSavePath()).toString();
+        File xsdIOFile = new File(fileFullPath);
+        String absolutePath = xsdIOFile.getAbsolutePath();
 
-        //是否添加注释
-        options.setGenCommentsForParticles(false);
-        options.setGenChoiceOptionsAsComments(false);
-        options.setMaxRecursiveDepth(1);
-        options.setMaxRepeatingElements(2);
-        options.setDefVals(DefaultValues.DEFAULT);
+        List<QName> globalElements = getGlobalElements(xsdIOFile);
+        if (globalElements.isEmpty()) {
+            throw new RuntimeException("XSD File's Content is empty");
+        }
+        QName rootElement = globalElements.iterator().next();
+        XSModel xsModel = new XSParser().parse(absolutePath);
+        XSInstance xsInstance = new XSInstance();
+        xsInstance.generateAllChoices = Boolean.TRUE;
+        xsInstance.generateOptionalElements = Boolean.TRUE;
+        xsInstance.generateOptionalAttributes = Boolean.TRUE;
+        xsInstance.generateFixedAttributes = Boolean.TRUE;
+        xsInstance.generateDefaultAttributes = Boolean.TRUE;
 
-        QName elName = new QName("", localPart);
+        StringWriter outWriter = new StringWriter();
+        XMLDocument sampleXml = new XMLDocument(new StreamResult(outWriter), true, 4, "UTF-8");
+        xsInstance.generate(xsModel, rootElement, sampleXml);
 
-        return generator.generateXml(elName, true);
+        String xmlString = outWriter.getBuffer().toString();
+        return XmlObject.Factory.parse(xmlString).toString();
     }
 
+    /**
+     * 远程访问接口，进行 XSD-> XML 的转换
+     * @param xsdDataFromFile
+     * @return
+     */
     public static String genXMLByHTTP(StringBuffer xsdDataFromFile) {
         String url = "http://xsd2xml.com/GetXmlData";
         Map<String, String> params = new HashMap<String, String>();
@@ -92,5 +115,26 @@ public class GenXMLUtil {
         params.put("Options.CodeUnsignedShort", "44");
         String response = HttpClientUtil.doPost(url, params);
         return StringEscapeUtils.unescapeJava(response.substring(7, response.length() - 2));
+    }
+
+    /**
+     * 获取全部的Qname
+     * @param xsdFile
+     * @return
+     * @throws Exception
+     */
+    private static List<QName> getGlobalElements(File xsdFile) throws Exception {
+        SchemaTypeSystem sts = XmlBeans.compileXsd(
+                new XmlObject[]{
+                        XmlObject.Factory.parse(xsdFile)
+                },
+                XmlBeans.getBuiltinTypeSystem(), null);
+
+        List<QName> qnames = new ArrayList();
+        for (SchemaGlobalElement el : sts.globalElements()) {
+            qnames.add(el.getName());
+        }
+
+        return qnames;
     }
 }
